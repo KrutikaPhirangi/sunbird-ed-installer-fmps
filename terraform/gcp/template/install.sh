@@ -148,7 +148,8 @@ function generate_postman_env() {
         cd ../terraform/gcp/$environment 2>/dev/null || true
     fi
     domain_name=$(kubectl get cm -n sunbird lms-env -ojsonpath='{.data.sunbird_web_url}')
-    blob_store_path=$(kubectl get cm -n sunbird player-env -ojsonpath='{.data.cloud_private_storage_accountname}')
+    blob_store_path=$(kubectl get cm player-env -n sunbird -ojsonpath='{.data.sunbird_cloud_storage_urls}' | awk -F/ '{print $1"//"$3}')
+    public_container_name=$(kubectl get cm -n sunbird player-env -ojsonpath='{.data.cloud_storage_resourceBundle_bucketname}')
     api_key=$(kubectl get cm -n sunbird player-env -ojsonpath='{.data.sunbird_api_auth_token}')
     keycloak_secret=$(kubectl get cm -n sunbird player-env -ojsonpath='{.data.sunbird_portal_session_secret}')
     keycloak_admin=$(kubectl get cm -n sunbird userorg-env -ojsonpath='{.data.sunbird_sso_username}')
@@ -163,6 +164,7 @@ function generate_postman_env() {
         -e "s|REPLACE_WITH_KEYCLOAK_PASSWORD|${keycloak_password}|g" \
         -e "s|GENERATE_UUID|${generated_uuid}|g" \
         -e "s|BLOB_STORE_PATH|${blob_store_path}|g" \
+        -e "s|PUBLIC_CONTAINER_NAME|${public_container_name}|g" \
         "${temp_file}" >"env.json"
 
     echo -e "A env.json file is created in this directory: terraform/gcp/$environment"
