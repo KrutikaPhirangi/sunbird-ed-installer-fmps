@@ -360,8 +360,8 @@ confVolume: &confVolume
 
               # Extract the ZIP file if not already extracted
               [[ -d $adhoc_extracted_loc ]] || unzip -o $adhoc_loc -d $data_path
-              curl -o /data/analytics/models-2.0/data-products-1.0/lib/data-products-1.0.jar https://storage.googleapis.com/ed-prod-public-41ea104737/artifacts-release-7.0.0/data-products-1.0.jar              │
-│             curl -o /data/analytics/models-2.0/data-products-1.0/data-products-1.0.jar https://storage.googleapis.com/ed-prod-public-41ea104737/artifacts-release-7.0.0/data-products-1.0.jar
+              curl -o /data/analytics/models-2.0/data-products-1.0/lib/data-products-1.0.jar https://storage.googleapis.com/ed-prod-public-41ea104737/artifacts-release-7.0.0/data-products-1.0.jar
+              curl -o /data/analytics/models-2.0/data-products-1.0/data-products-1.0.jar https://storage.googleapis.com/ed-prod-public-41ea104737/artifacts-release-7.0.0/data-products-1.0.jar
 
 spark: &spark
   enabled: true
@@ -431,7 +431,7 @@ migration:
 superset:
   enabled: true
   image:
-    repository: sunbirded.azurecr.io/superset
-    tag: release-7.0.0
+    repository: sanketikahub/superset
+    tag: 4.1.1
     pullPolicy: Always
   
