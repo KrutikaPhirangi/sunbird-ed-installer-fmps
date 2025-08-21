@@ -3722,7 +3722,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"request\": {\n        \"channel\": {\n            \"defaultCourseFramework\": \"{{default_Course_Framework}}\",\n            \"defaultFramework\": \"{{framework_default}}\"\n        }\n    }\n}"
+									"raw": "{\n    \"request\": {\n        \"channel\": {\n            \"defaultCourseFramework\": \"{{framework_default}}\",\n            \"defaultFramework\": \"{{framework_default}}\"\n        }\n    }\n}"
 								},
 								"url": "{{host}}/api/channel/v1/update/{{channel_id}}"
 							},
@@ -4176,7 +4176,7 @@
 										}
 									}
 								},
-								"url": "{{host}}/api/object/category/definition/v1/update/obj-cat:course_collection_all"
+								"url": "{{host}}/api/object/category/definition/v1/update/obj-cat:digital-textbook_collection_all"
 							},
 							"response": []
 						},
