@@ -207,6 +207,95 @@ function create_client_forms() {
     done 
    }
 
+function get_new_root_org() {
+    local env_file="env.json"
+    if [ ! -f "$env_file" ]; then
+        echo "Error: $env_file not found!"
+        return 1
+    fi
+    local host
+    local apikey
+    host=$(jq -r '.values[] | select(.key=="host") | .value' "$env_file")
+    apikey=$(jq -r '.values[] | select(.key=="apikey") | .value' "$env_file")
+    if [[ -z "$host" || -z "$apikey" || "$host" == "null" || "$apikey" == "null" ]]; then
+        echo "Error: host or apikey missing in $env_file"
+        return 1
+    fi
+    local root_org
+    root_org=$(curl --silent --location --globoff --request POST "$host/api/org/v1/search" \
+        --header "Authorization: Bearer $apikey" \
+        --header "Content-Type: application/json" \
+        --data '{
+            "request": {
+                "filters": {
+                    "orgName": "FMPS"
+                },
+                "fields": [
+                    "rootOrgId"
+                ]
+            }
+        }' | jq -r '.result.response.content[0].rootOrgId')
+    if [ -z "$root_org" ] || [ "$root_org" == "null" ]; then
+        echo "Error: Could not fetch rootOrgId"
+        return 1
+    fi
+    echo "$root_org"
+}
+
+function update_root_org() {
+    local environment="$1"
+    local new_root_org
+    new_root_org="$(get_new_root_org)" || return 1
+    local backup_dir="../../../cassandra-backup/$environment"
+    if [ -d "$backup_dir" ]; then
+        cd "$backup_dir" || return
+    else
+        echo "Backup directory $backup_dir not found!"
+        return 1
+    fi
+    if [ ! -f form_data.csv ]; then
+        echo "form_data.csv not found in $backup_dir"
+        return 1
+    fi
+    awk -F',' -v new_id="$new_root_org" 'BEGIN{OFS=","}
+        NR==1 {print; next}
+        $1!="*" {$1=new_id}
+        {print}
+    ' form_data.csv > form_data_updated.csv
+    echo "Updated file created at: $backup_dir/form_data_updated.csv"
+}
+
+function form_data_dump_cassandra() {
+    local backup_dir="../../../cassandra-backup/$environment"
+    if [ -d "$backup_dir" ]; then
+        cd "$backup_dir" || return
+    fi
+    local namespace="sunbird"
+    local secret_name="cassandra"
+    local cass_pass
+    cass_pass=$(kubectl -n $namespace get secret $secret_name -o jsonpath="{.data.cassandra-password}" | base64 -d)
+    kubectl -n $namespace cp form_data_updated.csv cassandra-0:/tmp/form_data_updated.csv
+    echo "Truncating table inside Cassandra pod..."
+    kubectl -n $namespace exec -i cassandra-0 -- \
+      cqlsh -u cassandra -p "$cass_pass" -e "TRUNCATE qmzbm_form_service.form_data;" localhost
+    echo "Importing data from form_data_updated.csv ..."
+    kubectl -n $namespace exec -i cassandra-0 -- \
+      cqlsh -u cassandra -p "$cass_pass" -e "
+        COPY qmzbm_form_service.form_data (
+        root_org, framework, type, subtype, action, component, created_on, data, last_modified_on
+        )
+        FROM '/tmp/form_data_updated.csv'
+        WITH HEADER=TRUE
+        AND NULL='null'
+        AND PAGESIZE=100
+        AND CHUNKSIZE=10
+        AND INGESTRATE=10
+        AND MAXATTEMPTS=20
+        AND ERRFILE='/tmp/form_data_import.err';
+      "
+    echo "Done."
+}
+
 function cleanworkspace() {
         rm  certkey.pem certpubkey.pem
         sed -i '/CERTIFICATE_PRIVATE_KEY:/d' global-values.yaml
@@ -273,6 +362,9 @@ if [ $# -eq 0 ]; then
     generate_postman_env
     run_post_install
     create_client_forms
+    get_new_root_org
+    update_root_org $environment
+    form_data_dump_cassandra
 else
     case "$1" in
     "create_tf_backend")
@@ -305,6 +397,15 @@ else
         ;;
     "create_client_forms")
         create_client_forms
+        ;;
+    "get_new_root_org")
+        get_new_root_org
+        ;;
+    "update_root_org")
+        update_root_org "$environment"
+        ;;
+    "form_data_dump_cassandra")
+        form_data_dump_cassandra
         ;;
     *)
         invoke_functions "$@"
