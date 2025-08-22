@@ -393,6 +393,7 @@ if [ $# -eq 0 ]; then
     get_new_root_org
     update_root_org $environment
     form_data_dump_cassandra
+    data_products_migration
 else
     case "$1" in
     "create_tf_backend")
@@ -437,6 +438,9 @@ else
         ;;
     "post_install_nodebb_plugins")
         post_install_nodebb_plugins
+        ;;
+    "data_products_migration")
+        data_products_migration
         ;;
     *)
         invoke_functions "$@"
