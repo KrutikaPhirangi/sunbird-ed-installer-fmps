@@ -316,11 +316,13 @@ function form_data_dump_cassandra() {
 
 function data_products_migration() {
     public_container_name=$(kubectl get cm -n sunbird player-env -ojsonpath='{.data.cloud_storage_resourceBundle_bucketname}')
-    gsutil cp "gs://ed-prod-public-41ea104737/artifacts-release-7.0.0/data-products-1.0.jar" "${public_container_name}/artifacts-release-7.0.0/data-products-1.0.jar"
-    echo "Data products jar copied to public container"
-    echo -e "\nRestart spark and wait for it to start..."
-    kubectl rollout restart statefulset -n sunbird spark
-    kubectl rollout status statefulset -n sunbird spark
+    gsutil cp \
+        "gs://ed-prod-public-41ea104737/artifacts-release-7.0.0/data-products-1.0.jar" \
+        "gs://${public_container_name}/artifacts-release-7.0.0/data-products-1.0.jar"
+    echo -e "\nData products jar copied to public container: ${public_container_name}/artifacts-release-7.0.0/data-products-1.0.jar"
+    echo -e "\nRestarting spark-master..."
+    kubectl rollout restart statefulset -n sunbird spark-master
+    kubectl rollout status statefulset -n sunbird spark-master
 }
 
 function cleanworkspace() {
