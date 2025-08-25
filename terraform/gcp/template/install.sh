@@ -444,9 +444,6 @@ else
     "data_products_migration")
         data_products_migration
         ;;
-    "post_install_nodebb_plugins")
-        post_install_nodebb_plugins
-        ;;
     *)
         invoke_functions "$@"
         ;;
