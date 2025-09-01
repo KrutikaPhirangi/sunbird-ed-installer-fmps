@@ -4,9 +4,10 @@ default_passwords:
   keycloak_password: &keycloak-password "admin"
   postgresql_password: &postgresql-password "postgres"
 superset:
-  credentials:
-    adminUser: admin
-    adminPassword: *superset-admin-password
+  init:
+    adminUser:
+      username: admin
+      password: *superset-admin-password
   supersetNode:
     connections:
       db_pass: *postgresql-password

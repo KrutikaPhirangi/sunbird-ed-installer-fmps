@@ -296,7 +296,7 @@ kong_apis:
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
     config.whitelist:
-    - frameworkCreate
+    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.large_rate_limit_per_hour }}"
@@ -512,7 +512,7 @@ kong_apis:
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
     config.whitelist:
-    - frameworkCreate
+    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.x_medium_rate_limit_per_hour }}"
@@ -530,7 +530,7 @@ kong_apis:
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
     config.whitelist:
-    - frameworkCreate
+    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.large_rate_limit_per_hour }}"
@@ -548,7 +548,7 @@ kong_apis:
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
     config.whitelist:
-    - frameworkCreate
+    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.large_rate_limit_per_hour }}"
@@ -3389,7 +3389,7 @@ kong_apis:
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
     config.whitelist:
-    - frameworkUpdate
+    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.large_rate_limit_per_hour }}"
@@ -3407,7 +3407,7 @@ kong_apis:
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
     config.whitelist:
-    - frameworkUpdate
+    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.large_rate_limit_per_hour }}"
@@ -3425,7 +3425,7 @@ kong_apis:
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
     config.whitelist:
-    - frameworkUpdate
+    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.large_rate_limit_per_hour }}"
@@ -4717,7 +4717,7 @@ kong_apis:
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
     config.whitelist:
-    - frameworkCreate
+    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.small_rate_limit_per_hour }}"
@@ -4753,7 +4753,7 @@ kong_apis:
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
     config.whitelist:
-    - frameworkUpdate
+    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.small_rate_limit_per_hour }}"
@@ -4771,7 +4771,7 @@ kong_apis:
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
     config.whitelist:
-    - frameworkCreate
+    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.small_rate_limit_per_hour }}"
@@ -4807,7 +4807,7 @@ kong_apis:
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
     config.whitelist:
-    - frameworkUpdate
+    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.small_rate_limit_per_hour }}"
@@ -9136,8 +9136,6 @@ kong_apis:
   - name: cors
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
-    config.whitelist:
-    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.small_rate_limit_per_hour }}"

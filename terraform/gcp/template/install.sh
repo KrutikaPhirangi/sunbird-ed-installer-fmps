@@ -193,6 +193,24 @@ function run_post_install() {
     postman collection run collection${RELEASE}.json --environment env.json --delay-request 500 --bail --insecure
 }
 
+function post_install_nodebb_plugins() {
+    echo ">> Waiting for NodeBB deployment to be ready..."
+    kubectl rollout status deployment nodebb -n sunbird --timeout=300s
+
+    echo ">> Activating NodeBB plugins..."
+    kubectl exec -n sunbird deploy/nodebb -- ./nodebb activate nodebb-plugin-create-forum
+    kubectl exec -n sunbird deploy/nodebb -- ./nodebb activate nodebb-plugin-sunbird-oidc
+    kubectl exec -n sunbird deploy/nodebb -- ./nodebb activate nodebb-plugin-write-api
+
+    echo ">> Rebuilding NodeBB to apply plugin changes..."
+    kubectl exec -n sunbird deploy/nodebb -- ./nodebb build
+
+    echo ">> Restarting NodeBB..."
+    kubectl delete pod -n sunbird -l app.kubernetes.io/name=nodebb
+
+    echo "NodeBB plugins are activated, built, and NodeBB has been restarted."
+}
+
 function create_client_forms() {
     local current_directory="$(pwd)"
     if [ "$(basename $current_directory)" != "$environment" ]; then
@@ -367,6 +385,7 @@ if [ $# -eq 0 ]; then
     cd ../../../helmcharts
     install_helm_components
     cd ../terraform/gcp/$environment
+    post_install_nodebb_plugins
     restart_workloads_using_keys
     certificate_config
     dns_mapping
@@ -418,6 +437,9 @@ else
         ;;
     "form_data_dump_cassandra")
         form_data_dump_cassandra
+        ;;
+    "post_install_nodebb_plugins")
+        post_install_nodebb_plugins
         ;;
     "data_products_migration")
         data_products_migration

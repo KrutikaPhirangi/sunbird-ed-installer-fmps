@@ -2388,6 +2388,36 @@
 										"url": "{{host}}/api/object/category/v1/create"
 									},
 									"response": []
+								},
+								{
+									"name": "ObjectCategory - Question Bank",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{apikey}}"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"request\": {\n        \"objectCategory\": {\n            \"name\": \"Question Bank\",\n            \"description\":\"Question Bank\"\n        }\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}/api/object/category/v1/create"
+									},
+									"response": []
 								}
 							],
 							"description": "[https://github.com/project-sunbird/knowledge-platform/blob/master/scripts/definition-scripts/master_category_create](https://github.com/project-sunbird/knowledge-platform/blob/master/scripts/definition-scripts/master_category_create)"
@@ -2994,6 +3024,36 @@
 										"url": "{{host}}/api/object/category/definition/v1/create"
 									},
 									"response": []
+								},
+								{
+									"name": "ObjectCategoryDefinition - Question Bank",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{apikey}}"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"request\": {\n        \"objectCategoryDefinition\": {\n            \"categoryId\": \"obj-cat:question-bank\",\n            \"targetObjectType\": \"Content\",\n            \"objectMetadata\": {\n                \"config\": {},\n                \"schema\": {\n                    \"properties\": {\n                        \"trackable\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"enabled\": {\n                                    \"type\": \"string\",\n                                    \"enum\": [\n                                        \"Yes\",\n                                        \"No\"\n                                    ],\n                                    \"default\": \"No\"\n                                }\n                            },\n                            \"additionalCategories\": {\n                                \"type\": \"array\",\n                                \"items\": {\n                                    \"type\": \"string\",\n                                    \"default\": \"Textbook\"\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}/api/object/category/definition/v1/create"
+									},
+									"response": []
 								}
 							]
 						}
@@ -3131,6 +3191,139 @@
 								"body": {
 									"mode": "raw",
 									"raw": "{\n    \"request\": {\n        \"category\": {\n            \"name\": \"Category\",\n            \"description\": \"Category\",\n            \"code\": \"category\",\n            \"targetIdFieldName\": \"targetCategoryIds\",\n            \"searchLabelFieldName\": \"se_categorys\",\n            \"searchIdFieldName\": \"se_categoryIds\",\n            \"orgIdFieldName\": \"categoryIds\"\n        }\n    }\n}"
+								},
+								"url": "{{host}}/api/learning/framework/v3/category/master/create"
+							},
+							"response": []
+						},
+						{
+							"name": "Framework Master Category - Domain",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{apikey}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Channel-Id",
+										"value": "{{channel_id}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"request\": {\n        \"category\": {\n            \"name\": \"Domain\",\n            \"description\": \"Domain\",\n            \"code\": \"domain\",\n            \"targetIdFieldName\": \"targetDomainIds\",\n            \"searchLabelFieldName\": \"se_domains\",\n            \"searchIdFieldName\": \"se_domainIds\",\n            \"orgIdFieldName\": \"domainIds\"\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}/api/learning/framework/v3/category/master/create"
+							},
+							"response": []
+						},
+						{
+							"name": "Framework Master Category - Skill",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{apikey}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Channel-Id",
+										"value": "{{channel_id}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"request\": {\n        \"category\": {\n            \"name\": \"Skill\",\n            \"description\": \"Skill\",\n            \"code\": \"skill\",\n            \"targetIdFieldName\": \"targetSkillIds\",\n            \"searchLabelFieldName\": \"se_skills\",\n            \"searchIdFieldName\": \"se_skillIds\",\n            \"orgIdFieldName\": \"skillIds\"\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}/api/learning/framework/v3/category/master/create"
+							},
+							"response": []
+						},
+						{
+							"name": "Framework Master Category - SubSkill",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{apikey}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Channel-Id",
+										"value": "{{channel_id}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"request\": {\n        \"category\": {\n            \"name\": \"SubSkill\",\n            \"description\": \"SubSkill\",\n            \"code\": \"subSkill\",\n            \"targetIdFieldName\": \"targetSubSkillIds\",\n            \"searchLabelFieldName\": \"se_subSkills\",\n            \"searchIdFieldName\": \"se_subSkillIds\",\n            \"orgIdFieldName\": \"subSkillIds\"\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}/api/learning/framework/v3/category/master/create"
+							},
+							"response": []
+						},
+						{
+							"name": "Framework Master Category - ObsrvableElements",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{apikey}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "X-Channel-Id",
+										"value": "{{channel_id}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"request\": {\n        \"category\": {\n            \"name\": \"ObservableElement\",\n            \"description\": \"ObservableElement\",\n            \"code\": \"observableElement\",\n            \"targetIdFieldName\": \"targetObservableElementIds\",\n            \"searchLabelFieldName\": \"se_observableElements\",\n            \"searchIdFieldName\": \"se_observableElementIds\",\n            \"orgIdFieldName\": \"observableElementIds\"\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
 								},
 								"url": "{{host}}/api/learning/framework/v3/category/master/create"
 							},
