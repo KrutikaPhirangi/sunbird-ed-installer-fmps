@@ -145,7 +145,7 @@ extraVolumeMounts: []
 # Files can be passed as helm --set-file configOverrides.my-override=my-file.py
 configOverrides:
   webserver_base_url: |
-    WEBSERVER_BASE_URL = "https://superset.dev.maharat.fmps.ma"
+    WEBSERVER_BASE_URL = "https://superset.{{ .Values.global.domain }}"
 
 # -- Same as above but the values are files
 configOverridesFiles: {}
