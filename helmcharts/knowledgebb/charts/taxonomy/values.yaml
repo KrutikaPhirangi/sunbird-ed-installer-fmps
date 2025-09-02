@@ -3,7 +3,7 @@ fullnameOverride: "taxonomy"
 replicaCount: 1
 
 image:
-  repository: sunbirded.azurecr.io/taxonomy-service
+  repository: asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/taxonomy-service
   tag: "R6.1.0-CSS-1.4.7.2-V4"
   pullPolicy: IfNotPresent
   pullSecrets: []
