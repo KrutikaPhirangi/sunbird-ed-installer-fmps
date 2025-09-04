@@ -4,6 +4,10 @@ default_passwords:
   keycloak_password: &keycloak-password "admin"
   postgresql_password: &postgresql-password "postgres"
 superset:
+  init:
+    adminUser:
+      username: admin
+      password: *superset-admin-password
   credentials:
     adminUser: admin
     adminPassword: *superset-admin-password
@@ -62,7 +66,6 @@ global:
   postgresql:
     postgresqlUsername: postgres
     postgresqlPassword: *postgresql-password
-
   # The merge domain is optional and is required only if user merge workflow is required.
   # For most audience, this workflow is not required. If you need this workflow, then
   # set the value of merge_domain_status to "true" and provide a subdomain / another domain

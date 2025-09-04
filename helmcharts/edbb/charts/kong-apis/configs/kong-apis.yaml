@@ -296,7 +296,7 @@ kong_apis:
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
     config.whitelist:
-    - frameworkCreate
+    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.large_rate_limit_per_hour }}"
@@ -512,7 +512,7 @@ kong_apis:
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
     config.whitelist:
-    - frameworkCreate
+    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.x_medium_rate_limit_per_hour }}"
@@ -530,7 +530,7 @@ kong_apis:
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
     config.whitelist:
-    - frameworkCreate
+    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.large_rate_limit_per_hour }}"
@@ -548,7 +548,7 @@ kong_apis:
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
     config.whitelist:
-    - frameworkCreate
+    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.large_rate_limit_per_hour }}"
@@ -3389,7 +3389,7 @@ kong_apis:
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
     config.whitelist:
-    - frameworkUpdate
+    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.large_rate_limit_per_hour }}"
@@ -3407,7 +3407,7 @@ kong_apis:
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
     config.whitelist:
-    - frameworkUpdate
+    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.large_rate_limit_per_hour }}"
@@ -3425,7 +3425,7 @@ kong_apis:
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
     config.whitelist:
-    - frameworkUpdate
+    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.large_rate_limit_per_hour }}"
@@ -4717,7 +4717,7 @@ kong_apis:
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
     config.whitelist:
-    - frameworkCreate
+    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.small_rate_limit_per_hour }}"
@@ -4753,7 +4753,7 @@ kong_apis:
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
     config.whitelist:
-    - frameworkUpdate
+    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.small_rate_limit_per_hour }}"
@@ -4771,7 +4771,7 @@ kong_apis:
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
     config.whitelist:
-    - frameworkCreate
+    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.small_rate_limit_per_hour }}"
@@ -4807,7 +4807,7 @@ kong_apis:
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
     config.whitelist:
-    - frameworkUpdate
+    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.small_rate_limit_per_hour }}"
@@ -9126,3 +9126,136 @@ kong_apis:
     config.limit_by: credential
   - name: request-size-limiting
     config.allowed_payload_size: "{{ .Values.medium_request_size_limit }}"     
+
+  - name: retireFrameworkTerm
+  uris: "{{ .Values.framework_service_prefix }}/v3/term/retire"
+  upstream_url: "{{ .Values.taxonomy_service_url }}/framework/v3/term/retire"
+  strip_uri: true
+  plugins:
+  - name: jwt
+  - name: cors
+  - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
+  - name: acl
+  - name: rate-limiting
+    config.policy: local
+    config.hour: "{{ .Values.small_rate_limit_per_hour }}"
+    config.limit_by: credential
+  - name: request-size-limiting
+    config.allowed_payload_size: "{{ .Values.small_request_size_limit }}"
+
+  - name: reviewFrameworkV3
+  uris: "{{ .Values.framework_service_prefix }}/v3/review"
+  upstream_url: "{{ .Values.taxonomy_service_url }}/framework/v3/review"
+  strip_uri: true
+  plugins:
+  - name: jwt
+  - name: cors
+  - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
+  - name: acl
+    config.whitelist:
+    - frameworkAdmin
+  - name: rate-limiting
+    config.policy: local
+    config.hour: "{{ .Values.small_rate_limit_per_hour }}"
+    config.limit_by: credential
+  - name: request-size-limiting
+    config.allowed_payload_size: "{{ .Values.small_request_size_limit }}"
+
+- name: rejectFrameworkV3
+  uris: "{{ .Values.framework_service_prefix }}/v3/reject"
+  upstream_url: "{{ .Values.taxonomy_service_url }}/framework/v3/reject"
+  strip_uri: true
+  plugins:
+  - name: jwt
+  - name: cors
+  - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
+  - name: acl
+    config.whitelist:
+    - frameworkAdmin
+  - name: rate-limiting
+    config.policy: local
+    config.hour: "{{ .Values.small_rate_limit_per_hour }}"
+    config.limit_by: credential
+  - name: request-size-limiting
+    config.allowed_payload_size: "{{ .Values.small_request_size_limit }}"
+
+- name: retireFrameworkV3
+  uris: "{{ .Values.framework_service_prefix }}/v3/retire"
+  upstream_url: "{{ .Values.taxonomy_service_url }}/framework/v3/retire"
+  strip_uri: true
+  plugins:
+  - name: jwt
+  - name: cors
+  - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
+  - name: acl
+    config.whitelist:
+    - frameworkAdmin
+  - name: rate-limiting
+    config.policy: local
+    config.hour: "{{ .Values.small_rate_limit_per_hour }}"
+    config.limit_by: credential
+  - name: request-size-limiting
+    config.allowed_payload_size: "{{ .Values.small_request_size_limit }}"
+
+- name: readFrameworkV3
+  uris: "{{ .Values.framework_service_prefix }}/v3/read"
+  upstream_url: "{{ .Values.taxonomy_service_url }}/framework/v3/read"
+  strip_uri: true
+  plugins:
+  - name: cors
+  - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
+  - name: rate-limiting
+    config.policy: local
+    config.hour: "{{ .Values.premium_consumer_large_rate_limit_per_hour }}"
+    config.limit_by: ip
+  - name: request-size-limiting
+    config.allowed_payload_size: "{{ .Values.small_request_size_limit }}"
+
+- name: readContentV3
+  uris: "{{ .Values.content_prefix }}/v3/read"
+  upstream_url: "{{ .Values.content_service_url }}/v3/content/read"
+  strip_uri: true
+  plugins:
+  - name: cors
+  - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
+  - name: rate-limiting
+    config.policy: local
+    config.hour: "{{ .Values.medium_rate_limit_per_hour }}"
+    config.limit_by: ip
+  - name: request-size-limiting
+    config.allowed_payload_size: "{{ .Values.small_request_size_limit }}"
+
+### Competency framework APIs
+
+- name: PrivateSearch
+  uris: "/private/v3/search"
+  upstream_url: "{{ .Values.search_service_url }}/v3/private/search"
+  strip_uri: true
+  plugins:
+  - name: jwt
+  - name: cors
+  - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
+  - name: acl
+    config.whitelist:
+    - contentAdmin
+  - name: rate-limiting
+    config.policy: local
+    config.hour: "{{ .Values.medium_rate_limit_per_hour }}"
+    config.limit_by: credential
+  - name: request-size-limiting
+    config.allowed_payload_size: "{{ .Values.small_request_size_limit }}"
+
+- name: refreshBody
+  uris: "{{.Values.content_prefix }}/v3/refresh/body"
+  upstream_url: "{{ .Values.content_service_url }}/v3/refresh/body"
+  strip_uri: true
+  plugins:
+  - name: jwt
+  - name: cors
+  - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
+  - name: rate-limiting
+    config.policy: local
+    config.hour: "{{ .Values.medium_rate_limit_per_hour }}"
+    config.limit_by: credential
+  - name: request-size-limiting
+    config.allowed_payload_size: "{{ .Values.small_request_size_limit }}"
