@@ -35,7 +35,7 @@ serviceAccount:
   create: false
 
 base_config: &base_config
-  enabled: false
+  enabled: true
   replicas: 1
   service_name: "raw_telemetry_backup"
   timestamp_key: "syncts"
