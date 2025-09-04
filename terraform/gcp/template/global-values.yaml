@@ -8,6 +8,9 @@ superset:
     adminUser:
       username: admin
       password: *superset-admin-password
+  credentials:
+    adminUser: admin
+    adminPassword: *superset-admin-password
   supersetNode:
     connections:
       db_pass: *postgresql-password
