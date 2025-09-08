@@ -9247,12 +9247,15 @@ kong_apis:
 
 - name: refreshBody
   uris: "{{.Values.content_prefix }}/v3/refresh/body"
-  upstream_url: "{{ .Values.content_service_url }}/v3/refresh/body"
+  upstream_url: "{{ .Values.content_service_url }}/content/v3/refresh/body"
   strip_uri: true
   plugins:
   - name: jwt
   - name: cors
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
+  - name: acl
+    config.whitelist:
+    - contentUpdate
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.medium_rate_limit_per_hour }}"
