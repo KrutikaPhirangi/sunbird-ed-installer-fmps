@@ -2418,6 +2418,36 @@
 										"url": "{{host}}/api/object/category/v1/create"
 									},
 									"response": []
+								},
+								{
+									"name": "ObjectCategory - Dynamic Assess",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{apikey}}"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"request\": {\n        \"objectCategory\": {\n            \"name\": \"Dynamic Assess\",\n            \"description\":\"Dynamic Assess\"\n        }\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}/api/object/category/v1/create"
+									},
+									"response": []
 								}
 							],
 							"description": "[https://github.com/project-sunbird/knowledge-platform/blob/master/scripts/definition-scripts/master_category_create](https://github.com/project-sunbird/knowledge-platform/blob/master/scripts/definition-scripts/master_category_create)"
@@ -3046,6 +3076,36 @@
 										"body": {
 											"mode": "raw",
 											"raw": "{\n    \"request\": {\n        \"objectCategoryDefinition\": {\n            \"categoryId\": \"obj-cat:question-bank\",\n            \"targetObjectType\": \"Content\",\n            \"objectMetadata\": {\n                \"config\": {},\n                \"schema\": {\n                    \"properties\": {\n                        \"trackable\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"enabled\": {\n                                    \"type\": \"string\",\n                                    \"enum\": [\n                                        \"Yes\",\n                                        \"No\"\n                                    ],\n                                    \"default\": \"No\"\n                                }\n                            },\n                            \"additionalCategories\": {\n                                \"type\": \"array\",\n                                \"items\": {\n                                    \"type\": \"string\",\n                                    \"default\": \"Textbook\"\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}/api/object/category/definition/v1/create"
+									},
+									"response": []
+								},
+								{
+									"name": "ObjectCategoryDefinition - Dynamic Assess",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{apikey}}"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"request\": {\n        \"objectCategoryDefinition\": {\n            \"categoryId\": \"obj-cat:dynamic-assess\",\n            \"targetObjectType\": \"Content\",\n            \"objectMetadata\": {\n                \"config\": {},\n                \"schema\": {\n                    \"properties\": {\n                        \"trackable\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"enabled\": {\n                                    \"type\": \"string\",\n                                    \"enum\": [\n                                        \"Yes\",\n                                        \"No\"\n                                    ],\n                                    \"default\": \"No\"\n                                }\n                            },\n                            \"additionalCategories\": {\n                                \"type\": \"array\",\n                                \"items\": {\n                                    \"type\": \"string\",\n                                    \"default\": \"Textbook\"\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n}",
 											"options": {
 												"raw": {
 													"language": "json"
