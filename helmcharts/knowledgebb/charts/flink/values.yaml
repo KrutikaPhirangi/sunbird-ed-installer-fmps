@@ -4,8 +4,8 @@ fullnameOverride: ""
 replicaCount: 1
 
 image:
-  repository: docker.io/aimansharief/knowledge-platform-jobs
-  tag: "release-5.7.0-FMPS-1.0-V6"
+  repository: asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/knowledge-platform-jobs
+  tag: "release-5.7.0-FMPS-1.0"
   pullPolicy: IfNotPresent
   pullSecrets: []
 

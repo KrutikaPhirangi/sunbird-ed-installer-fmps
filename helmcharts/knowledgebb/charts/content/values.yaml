@@ -4,7 +4,7 @@ replicaCount: 1
 
 image:
   repository: asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/content-service
-  tag: "R6.1.0-FMPS-1.0-CSS-1.4.7.2-V2"
+  tag: "R6.1.0-FMPS-1.0-CSS-1.4.7.2-V4"
   pullPolicy: IfNotPresent
   pullSecrets: []
 
