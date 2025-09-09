@@ -792,7 +792,7 @@ flink_jobs:
     job_classname: org.sunbird.dp.contentupdater.task.ContentCacheUpdaterStreamTask
 
   user-cache-updater-v2:
-    enabled: false
+    enabled: true
     config: |+
       include file("/data/flink/conf/base-config.conf")
       kafka {
