@@ -9136,6 +9136,8 @@ kong_apis:
   - name: cors
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
   - name: acl
+    config.whitelist:
+    - frameworkAdmin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.small_rate_limit_per_hour }}"
