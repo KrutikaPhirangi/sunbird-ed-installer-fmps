@@ -253,6 +253,8 @@ CREATE TABLE IF NOT EXISTS user_summary_report (
 
 ALTER TABLE user_summary_report ADD COLUMN course_metrics JSONB;
 
+ALTER TABLE user_summary_report ADD COLUMN IF NOT EXISTS training_group TEXT;
+
 ALTER TABLE user_summary_report
 ADD COLUMN designation text;
 
