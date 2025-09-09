@@ -110,6 +110,7 @@ function install_component() {
         $ed_values_flag \
         -f "global-resources.yaml" \
         -f "../terraform/gcp/$environment/global-values.yaml" \
+        -f "../terraform/gcp/$environment/monitoring-values.yaml" \
         -f "../terraform/gcp/$environment/global-cloud-values.yaml" --timeout 30m --debug
 }
 
