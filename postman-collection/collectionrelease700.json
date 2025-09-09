@@ -1,9 +1,10 @@
 {
 	"info": {
-		"_postman_id": "e78c9303-f1b6-425c-a151-fd3340bcaf00",
+		"_postman_id": "6d57b7dd-cd0b-4cb5-88f5-f2c6003652cf",
 		"name": "Oneclick Installer Release 7.0.0 - Daylight Release",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "28460191"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "43852022",
+		"_collection_link": "https://vinodbhorge.postman.co/workspace/fmps-auto-dev~2eea00d6-889f-4ea6-93ef-7a8b715a4253/collection/43852022-6d57b7dd-cd0b-4cb5-88f5-f2c6003652cf?action=share&source=collection_link&creator=43852022"
 	},
 	"item": [
 		{
@@ -3105,7 +3106,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"request\": {\n        \"objectCategoryDefinition\": {\n            \"categoryId\": \"obj-cat:dynamic-assess\",\n            \"targetObjectType\": \"Content\",\n            \"objectMetadata\": {\n                \"config\": {},\n                \"schema\": {\n                    \"properties\": {\n                        \"trackable\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"enabled\": {\n                                    \"type\": \"string\",\n                                    \"enum\": [\n                                        \"Yes\",\n                                        \"No\"\n                                    ],\n                                    \"default\": \"No\"\n                                }\n                            },\n                            \"additionalCategories\": {\n                                \"type\": \"array\",\n                                \"items\": {\n                                    \"type\": \"string\",\n                                    \"default\": \"Textbook\"\n                                }\n                            }\n                        }\n                    }\n                }\n            }\n        }\n    }\n}",
+											"raw": "{\n    \"request\": {\n        \"objectCategoryDefinition\": {\n            \"categoryId\": \"obj-cat:dynamic-assess\",\n            \"targetObjectType\": \"Content\",\n            \"objectMetadata\": {\n                \"config\": {},\n                \"schema\": {\n                    \"properties\": {\n                        \"trackable\": {\n                            \"type\": \"object\",\n                            \"properties\": {\n                                \"enabled\": {\n                                    \"type\": \"string\",\n                                    \"enum\": [\n                                        \"Yes\",\n                                        \"No\"\n                                    ],\n                                    \"default\": \"No\"\n                                }\n                            }\n                        },\n                        \"difficultyRate\": {\n                            \"type\": \"string\"\n                        }\n                    }\n                }\n            }\n        }\n    }\n}",
 											"options": {
 												"raw": {
 													"language": "json"
