@@ -22,6 +22,8 @@ securityContext: {}
   #   drop:
   #   - ALL
 
+sunbird_kong_device_register_anonymous: "false"
+
 service:
   type: ClusterIP
   ports:
