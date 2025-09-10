@@ -116,7 +116,7 @@ Note: provide values for relevant prompts comming on the screen.
 
 #### Setting Up Obsrv
 
-Once this is complete. Follow the guidelines in the `obsrv-setup.md`
+Once this is complete. Follow the guidelines in the [obsrv-setup.md](./obsrv-setup.md)
 
 
 #### Deploy Services 
