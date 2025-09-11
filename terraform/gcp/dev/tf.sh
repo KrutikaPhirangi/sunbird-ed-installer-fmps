@@ -1,2 +1,0 @@
-export TERRAFORM_GCP_PROJECT=protean-fmps-morocco
-export TERRAFORM_BACKEND_BUCKET=devfmpstfstate
