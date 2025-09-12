@@ -8,7 +8,7 @@ replicaCount: 1
 # docker pull sunbirded.azurecr.io/sunbird-datapipeline:release-4.9.0_RC4_1
 image:
   repository: asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/sunbird-data-pipeline
-  tag: "release-5.2.1_v3"
+  tag: "release-5.2.1_v4"
   pullPolicy: IfNotPresent
   pullSecrets: []
 
