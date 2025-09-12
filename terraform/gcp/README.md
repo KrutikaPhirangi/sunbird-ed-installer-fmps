@@ -69,15 +69,15 @@ The installer doesn't require a specific CLI version, but we have documented the
 ```bash
 git clone https://github.com/sanketika-labs/sunbird-ed-installer-fmps.git
 cd terraform/gcp
-cp -r template <foldername> # <foldername> provide values eg: ( dev, prod, pre-prod)
-cd <foldername>
+cp -r template <env> # <env> provide values eg: ( dev, prod, pre-prod)
+cd <env>
 gcloud auth login
 gcloud config set project <your_project_id>
 ```
 
 #### GCP Infra Setup
 
-Post login, update the `terraform/gcp/<foldername>/global-values.yaml` file with the variables as per your environment:
+Post login, update the `terraform/gcp/<env>/global-values.yaml` file with the variables as per your environment:
 
 ```
 building_block: "" # building block name
@@ -108,7 +108,7 @@ proxy_certificate: |
 Then run the following  commands:
 
 ```bash
-cd terraform/gcp/<foldername>
+cd terraform/gcp/<env>
 time ./install.sh create_tf_backend backup_configs create_tf_resources
 ```
 
@@ -124,7 +124,7 @@ Once this is complete. Follow the guidelines in the [obsrv-setup.md](./obsrv-set
 Navigate back to `sanketika-labs/sunbird-ed-installer-fmps`:
 
 ```bash
-cd terraform/gcp/<foldername>
+cd terraform/gcp/<env>
 ```
 
 Comment out the following function calls in the `install.sh`
@@ -139,3 +139,5 @@ time ./install.sh
 ```
 
 - Confirm that all services are running and accessible in your GKE cluster.
+
+Once the installation is complete. For nominal testing. You will get the sign in credentials [here](../../README.md)

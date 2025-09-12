@@ -6,79 +6,78 @@ This guide walks you through installing **Obsrv** in FMPS using the `obsrv-autom
 
 - Google Cloud CLI [`gcloud`](https://cloud.google.com/sdk/docs/install#deb) installed and authenticated
 - [Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) and [Terragrunt](https://terragrunt.gruntwork.io/docs/getting-started/install/) must be installed.
-- Access to the [obsrv-automation](https://github.com/Sanketika-Obsrv/obsrv-automation) GitHub repository.
+- Access to the [obsrv-automation](https://github.com/Sanketika-labs/obsrv-automation) GitHub repository.
 - Ensure your Google Cloud account has the following permissions:
 
     ```
     GCS: Create and manage Cloud Storage buckets for storing Terraform state.
-    GKE: Create and manage Kubernetes clusters for deploying Obsrv.
     IAM: Create and assign IAM roles and service accounts for resource access control```
 
 ## Installation Steps
 
 ### 1. Clone the Repository
 
-```
-git clone https://github.com/Sanketika-Obsrv/obsrv-automation.git
-git checkout 1.9.2-fmps1
+```bash
+git clone https://github.com/Sanketika-labs/obsrv-automation.git
+git checkout 1.9.2-fmps2     # prefer to use the latest tag.
 cd obsrv-automation/terraform/gcp
 ```
 ## Edit Cluster Configuration
 
 Edit the file `vars/cluster_overrides.tfvars` with your environment-specific settings:
 
-```
-project                                 = "<myproject_id>"
-building_block                          = "obsrv"
-env                                     = "dev"
-region                                  = "us-central1"
-gke_cluster_location                    = "us-central1"
-zone                                    = "us-central1-a"
-timezone                                = "UTC"
+```hcl
+project           = "<project-id>"           # GCP project ID where resources will be created (e.g., "sunbird-prod")
+building_block    = "<building-block>"       # Logical group or domain of the deployment (e.g., "agri", "education")
+env               = "<env>"                  # Deployment environment (e.g., "dev", "test", "stage", "prod")
+region            = "<region>"               # GCP region where the GKE cluster will be deployed
+gke_cluster_location = "<cluster-location>"  # Specific location (zone or region) for the GKE cluster
+zone              = "<cluster-zone>"
+timezone          = "<time-zone>"            # Time standard used by the cluster ("UTC", "GMC", "WAT", "CAT")
 ```
 ℹ️ `Note`: Update the env, region, zone with the existing cluster details.
 
 ## Configure GCS Bucket
 
-Obsrv uses a **GCS bucket** to store Terraform state.
+Obsrv uses a Google Cloud Storage (GCS) bucket to store Terraform state files. Edit a file named `obsrv.conf` in the `infra-setup/` of the repo with the following content:
 
-Create or edit the `obsrv.conf` file in `infra-setup` with the following:
+```bash
+GOOGLE_PROJECT_ID="< name_of_the_project >" eg: sunbbird
+GOOGLE_TERRAFORM_BACKEND_BUCKET="< tfstate_bucket_name >" eg: sunbird-tfstate # Recommended to pass bucket name like this `<building-block>-<env>-tfstate`
+GOOGLE_TERRAFORM_BACKEND_BUCKET_REGION="< bucket_region >" eg: asia-south1 # Specify the region of the cluster
+```
 
-```
-GOOGLE_PROJECT_ID= obsrv-123
-GOOGLE_TERRAFORM_BACKEND_BUCKET=obsrv-cluster-tfstate
-GOOGLE_TERRAFORM_BACKEND_BUCKET_REGION=us-central1
-```
-ℹ️ `Note`: The bucket will be automatically created during installation if it doesn't exist.
+> ℹ️ **Note**: The bucket will be created automatically during the installation if it doesn't already exist.
+
 
 ## 🔧 Run the Installation Script
 
- Execute the following command:
+Navigate into the `infra-setup` directory and run the installation script:
 
-    ```
-    time ./obsrv.sh install --provider gcp --config ./obsrv.conf
-    ```
+```bash
+time ./obsrv.sh install --provider gcp --config ./obsrv.conf
+```
 ## Update Global Cloud Configurations
-Edit the file `global-cloud-values-gcp.yaml` and ensure following values are correctly set.
-
+Edit the file `helmcharts/global-cloud-values-gcp.yaml` and ensure following values are correctly set.
 ```yaml
 global:
-  project_id: 
-  cloud_storage_region:  
-  cloud_storage_config: 
-  postgresql_backup_cloud_bucket: 
-  checkpoint_bucket: 
-  velero_backup_cloud_bucket: 
+  project_id: <your-gcp-project-id> # Here you have pass the project name eg: sunbird
+  cloud_storage_region: asia-south1 # Region of the cluster
+  cloud_storage_config: <here you to pass the client_email, private_key and project_id > # You will find the values in the terraform/gcp/credentials
+  postgresql_backup_cloud_bucket: <bucket-name> # Pass the backups bucket name
+  checkpoint_bucket: <bucket-name> # Pass checkpoint bucket name
+  velero_backup_cloud_bucket: <bucket-name> # velero backup bucket name
 
+# Have to manually pass the service account names that are created along with the cluster creation.
 service_accounts:
-  config-api: 
-  dataset-api: 
-  druid-raw: 
-  flink-sa: 
-  postgres: 
-  secor: 
-  spark: 
-  velero: 
+  config-api: <sa-name>
+  dataset-api: <sa-name>
+  druid-raw: <sa-name>
+  flink-sa: <sa-name>
+  postgres: <sa-name>
+  secor: <sa-name>
+  spark: <sa-name>
+  velero: <sa-name>
 ```
 
 Note: Value for cloud_storage_config you will get in `terraform/gcp/credentials/*.json`
@@ -88,33 +87,53 @@ Note: Value for cloud_storage_config you will get in `terraform/gcp/credentials/
 Navigate to the Helm charts directory and install the core services:
 
 ```
-cd ../../helmcharts/kitchen
+cd /helmcharts/kitchen
 export cloud_env=gcp
 bash install.sh core-setup
 ```
+This installs critical components such as Postgres, Kafka, Zookeeper and others required by Obsrv.
+
 
 ## Configure Domain Mapping
 
-After installation of core services:
+After core services are installed:
 
-1. Get the external IP of the **Kong LoadBalancer service**.
+1. Run the following to fetch the external IP of Kong (API Gateway):
 
-2. Update the `global-values.yaml` file with the following:
+   ```bash
+   kubectl get svc -n kong # Get the external ip
+   ```
 
-```
-domain: "<external_ip>.sslip.io"
-```
+2. Update the `global-values.yaml` file with the domain using sslip.io for automatic DNS resolution:
+
+   ```yaml
+   domain: "<external_ip>.sslip.io" # example: domain: "23.34.123.432.sslip.io"
+   ```
 
 ## Install All Services
 
 ```
  bash install.sh all
 ```
+
+This installs all the services present in obsrv.
 ## Completion
 
-Once the script execution completes:
+Once installation is complete:
 
-- Access the Obsrv UI at:
+- Open your browser and access the Obsrv UI at:
+
+  ```
+  https://<external_ip>.sslip.io/console
+  ```
+
+- Use `kubectl get pods --all-namespaces` to verify all pods are running.
+
+- Monitor logs or dashboards as required to confirm proper service operation.
 
 
-- Confirm that all services are running and accessible in your GKE cluster.
+## Testing
+
+Please refer the following documentation. [Obsrv](https://docs.obsrv.ai/how-tos/create-a-dataset)
+
+Use the datasets present in `test-dataset/` directory for testing.
