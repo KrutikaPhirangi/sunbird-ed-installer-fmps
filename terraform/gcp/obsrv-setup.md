@@ -116,8 +116,5 @@ Once the script execution completes:
 
 - Access the Obsrv UI at:
 
-``
-https://<external_ip>.sslip.io/console
-``
 
 - Confirm that all services are running and accessible in your GKE cluster.
