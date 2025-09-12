@@ -796,8 +796,12 @@ flink_jobs:
     config: |+
       include file("/data/flink/conf/base-config.conf")
       kafka {
-        input.topic = {{ .Values.global.env }}.telemetry.audit
+        input.topic = telemetry
         groupId = {{ .Values.global.env }}-user-cache-updater-consumer-group
+        broker-servers = "kafka-headless.kafka.svc.cluster.local:9092"
+        producer.broker-servers = "kafka-headless.kafka.svc.cluster.local:9092"
+        consumer.broker-servers = "kafka-headless.kafka.svc.cluster.local:9092"
+        zookeeper = "kafka-zookeeper-headless.kafka.svc.cluster.local:2181"
       }
       task {
         usercache.updater.parallelism = {{ .Values.usercache_updater_parallelism }}
