@@ -59,7 +59,7 @@
     # If cloud provider is GCP
     gcloud auth login
     ```
-5. Based on cloud provider refer to the following;
+5. Based on cloud provider refer to the following for installation;
     - [GCP](terraform/gcp/README.md)
     - [Azure](terraform/azure/README.md])
     - [AWS](terraform/aws/README.md)
