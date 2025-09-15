@@ -78,8 +78,23 @@ This installation setup creates the following default users with different roles
 | Public User 1     | user1@yopmail.com                | User1@123            |
 | Public User 2     | user2@yopmail.com                | User2@123            |
 
+## Upgrading Services
+
+For any new implementations or updated image tags, upgrade the component using:
+```bash
+time ./install.sh install_component <building_block>
+```
+Replace <building_block> with the name of the building block in which updates are applied.
+
+### Example: 
+If player tag is updated.Then the following upgrading cmd should be done:
+```bash
+time ./install.sh install_component edbb
+```
+
 
 ##  Destorying the sunbird instance
 ```bash
 cd terraform/<cloud-provider>/<env>
 time ./install.sh destroy_tf_resources
+```
