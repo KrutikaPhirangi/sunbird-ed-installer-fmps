@@ -110,6 +110,7 @@ function install_component() {
         $ed_values_flag \
         -f "global-resources.yaml" \
         -f "../terraform/gcp/$environment/global-values.yaml" \
+        -f "../terraform/gcp/$environment/monitoring-values.yaml" \
         -f "../terraform/gcp/$environment/global-cloud-values.yaml" --timeout 30m --debug
 }
 
@@ -158,6 +159,7 @@ function generate_postman_env() {
     keycloak_secret=$(kubectl get cm -n sunbird player-env -ojsonpath='{.data.sunbird_portal_session_secret}')
     keycloak_admin=$(kubectl get cm -n sunbird userorg-env -ojsonpath='{.data.sunbird_sso_username}')
     keycloak_password=$(kubectl get cm -n sunbird userorg-env -ojsonpath='{.data.sunbird_sso_password}')
+    googleClientId=$(kubectl get cm -n sunbird player-env -ojsonpath='{.data.sunbird_google_oauth_clientId}')
     generated_uuid=$(uuidgen)
     temp_file=$(mktemp)
     cp postman.env.json "${temp_file}"
@@ -169,6 +171,7 @@ function generate_postman_env() {
         -e "s|GENERATE_UUID|${generated_uuid}|g" \
         -e "s|BLOB_STORE_PATH|${blob_store_path}|g" \
         -e "s|PUBLIC_CONTAINER_NAME|${public_container_name}|g" \
+        -e "s|SUNBIRD_GOOGLE_CLIENT_ID|${googleClientId}|g" \
         "${temp_file}" >"env.json"
 
     echo -e "A env.json file is created in this directory: terraform/gcp/$environment"
@@ -257,29 +260,44 @@ function get_new_root_org() {
         echo "Error: Could not fetch rootOrgId"
         return 1
     fi
-    echo "$root_org"
+
+    echo "$root_org|$host"
 }
 
 function update_root_org() {
     local environment="$1"
+    local new_root_org_and_host
+    new_root_org_and_host="$(get_new_root_org)" || return 1
+
     local new_root_org
-    new_root_org="$(get_new_root_org)" || return 1
-    local backup_dir="../../../cassandra-backup/$environment"
-    if [ -d "$backup_dir" ]; then
-        cd "$backup_dir" || return
-    else
-        echo "Backup directory $backup_dir not found!"
+    local new_host
+    new_root_org=$(echo "$new_root_org_and_host" | cut -d'|' -f1)
+    new_host=$(echo "$new_root_org_and_host" | cut -d'|' -f2)
+
+    local source_dir="../../../cassandra-backup"
+    local backup_dir="$source_dir/$environment"
+
+    if [ ! -d "$source_dir" ]; then
+        echo "Source directory $source_dir not found!"
         return 1
     fi
-    if [ ! -f form_data.csv ]; then
-        echo "form_data.csv not found in $backup_dir"
+
+    if [ ! -f "$source_dir/form_data.csv" ]; then
+        echo "form_data.csv not found in $source_dir"
         return 1
     fi
-    awk -F',' -v new_id="$new_root_org" 'BEGIN{OFS=","}
+
+    mkdir -p "$backup_dir"
+
+    awk -F',' -v new_id="$new_root_org" -v new_host="$new_host" 'BEGIN{OFS=","}
         NR==1 {print; next}
-        $1!="*" {$1=new_id}
+        {
+            if ($1!="*") $1=new_id
+            gsub("https://gcp-fmps.sunbirded.org", new_host, $0)
+        }
         {print}
-    ' form_data.csv > form_data_updated.csv
+    ' "$source_dir/form_data.csv" > "$backup_dir/form_data_updated.csv"
+
     echo "Updated file created at: $backup_dir/form_data_updated.csv"
 }
 
