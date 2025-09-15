@@ -159,6 +159,7 @@ function generate_postman_env() {
     keycloak_secret=$(kubectl get cm -n sunbird player-env -ojsonpath='{.data.sunbird_portal_session_secret}')
     keycloak_admin=$(kubectl get cm -n sunbird userorg-env -ojsonpath='{.data.sunbird_sso_username}')
     keycloak_password=$(kubectl get cm -n sunbird userorg-env -ojsonpath='{.data.sunbird_sso_password}')
+    googleClientId=$(kubectl get cm -n sunbird player-env -ojsonpath='{.data.sunbird_google_oauth_clientId}')
     generated_uuid=$(uuidgen)
     temp_file=$(mktemp)
     cp postman.env.json "${temp_file}"
@@ -170,6 +171,7 @@ function generate_postman_env() {
         -e "s|GENERATE_UUID|${generated_uuid}|g" \
         -e "s|BLOB_STORE_PATH|${blob_store_path}|g" \
         -e "s|PUBLIC_CONTAINER_NAME|${public_container_name}|g" \
+        -e "s|SUNBIRD_GOOGLE_CLIENT_ID|${googleClientId}|g" \
         "${temp_file}" >"env.json"
 
     echo -e "A env.json file is created in this directory: terraform/gcp/$environment"
