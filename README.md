@@ -87,7 +87,7 @@ time ./install.sh install_component <building_block>
 Replace <building_block> with the name of the building block in which updates are applied.
 
 ### Example: 
-If player tag is updated.Then the following upgrading cmd should be done:
+If the player tag is updated, please verify the corresponding building block from which the player service is deployed. In this case, the player service is deployed from the edbb building block.
 ```bash
 time ./install.sh install_component edbb
 ```
