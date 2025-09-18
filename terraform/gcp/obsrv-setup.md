@@ -62,22 +62,24 @@ Edit the file `helmcharts/global-cloud-values-gcp.yaml` and ensure following val
 ```yaml
 global:
   project_id: <your-gcp-project-id> # Here you have pass the project name eg: sunbird
-  cloud_storage_region: asia-south1 # Region of the cluster
-  cloud_storage_config: <here you to pass the client_email, private_key and project_id > # You will find the values in the terraform/gcp/credentials
-  postgresql_backup_cloud_bucket: <bucket-name> # Pass the backups bucket name
-  checkpoint_bucket: <bucket-name> # Pass checkpoint bucket name
-  velero_backup_cloud_bucket: <bucket-name> # velero backup bucket name
+  cloud_storage_region: <asia-south1> # Region of the cluster
+  cloud_storage_config: |   # You will find the values in the terraform/gcp/credentials/*.json
+    '{"identity":"<replace_with_client_email>","credential":"<replace_with_private_key>","projectId":"<replace_with_project_id>"}' 
+  cloud_storage_bucket: <bucket-name> # Pass private bucket name
+  postgresql_backup_cloud_bucket: <bucket-name> # Pass the private bucket name
+  checkpoint_bucket: gs://<private-bucket-name> # Pass private bucket name
+  velero_backup_cloud_bucket: <private-bucket-name> # Pass private bucket name
 
-# Have to manually pass the service account names that are created along with the cluster creation.
+# Have to manually pass the service account names that are created.
 service_accounts:
-  config-api: <sa-name>
-  dataset-api: <sa-name>
-  druid-raw: <sa-name>
-  flink-sa: <sa-name>
-  postgres: <sa-name>
-  secor: <sa-name>
-  spark: <sa-name>
-  velero: <sa-name>
+  config-api: <sa-name> # Follow this format: <replace_with_building_block>-config-api-sa-iam-role@<replace_with_project_id>.iam.gserviceaccount.com
+  dataset-api: <sa-name> # Follow this format: <replace_with_building_block>-dataset-api-sa-iam-role@<replace_with_project_id>.iam.gserviceaccount.com
+  druid-raw: <sa-name> # Follow this format: <replace_with_building_block>-druid-raw-sa-iam-role@<replace_with_project_id>.iam.gserviceaccount.com
+  flink-sa: <sa-name> # Follow this format: <replace_with_building_block>-flink-sa-iam-role@<replace_with_project_id>.iam.gserviceaccount.com
+  postgres: <sa-name> # Follow this format: <replace_with_building_block>-psql-backup-sa@<replace_with_project_id>.iam.gserviceaccount.com
+  secor: <sa-name> # Follow this format: <replace_with_building_block>-secor-sa-iam-role@<replace_with_project_id>.iam.gserviceaccount.com
+  spark: <sa-name> # Follow this format: <replace_with_building_block>-spark-sa-iam-role@<replace_with_project_id>.iam.gserviceaccount.com
+  velero: <sa-name> # Follow this format: <replace_with_building_block>-velero-sa-iam-role@<replace_with_project_id>.iam.gserviceaccount.com
 ```
 
 Note: Value for cloud_storage_config you will get in `terraform/gcp/credentials/*.json`
