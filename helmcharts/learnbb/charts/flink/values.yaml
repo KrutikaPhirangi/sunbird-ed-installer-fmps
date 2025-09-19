@@ -195,6 +195,7 @@ kafka_group_merge_courses: "{{ .Values.global.env }}-merge-courses-group"
 kafka_group_assessment_aggregator: "{{ .Values.global.env }}-assessment-aggregator-group"
 kafka_group_lms_notification: "{{ .Values.global.env }}-lms-notification"
 kafka_group_programuser_info: "{{ .Values.global.env }}-programuser-group"
+kafka_group_cf_batch_manager: "cf-batch-manager-group"
 
 ### base-config related vars
 postgres_max_connections: 2
@@ -308,6 +309,10 @@ mail_server_port: "587"
 ### User-deletion-cleanup Job vars
 user_deletion_cleanup_job_parallelism: 1
 sunbird_keycloak_user_federation_provider_id: "cassandrafederationid"
+
+### cf-batch job vars
+batch_create_endpoint_course: "/private/v1/course/batch/create"
+batch_create_endpoint_cl: "/private/v1/batch/create"
 
 log4j_console_properties: |
   # This affects logging for both user code and Flink
@@ -909,5 +914,48 @@ flink_jobs:
       jobmanager.execution.failover-strategy: region
       taskmanager.memory.network.fraction: 0.1
     job_classname: org.sunbird.job.deletioncleanup.task.UserDeletionCleanupStreamTask
+
+  cf-batch-manager:
+    enabled: true
+    config: |+
+      include file("/data/flink/conf/base-config.conf")
+
+      kafka {
+        input.topic = "{{ .Values.global.env }}.cf.batch.request"
+        output.audit.topic = "{{ .Values.global.env }}.telemetry.raw"
+        output.failed.topic = "{{ .Values.global.env }}.cf.batch.failed"
+        groupId = "{{ .Values.kafka_group_cf_batch_manager}}"
+      }
+
+      task {
+        window.shards = 1
+        consumer.parallelism = 1
+        batch.updater.parallelism = 1
+      }
+
+      threshold.batch.read.size = 1000
+
+      lms-cassandra {
+        keyspace = "{{ include "common.tplvalues.render" (dict "value" .Values.middleware_hierarchy_keyspace "context" $) }}"
+        table = "{{ .Values.middleware_content_hierarchy_table }}"
+      }
+
+      service {
+        lms.basePath = "{{ .Values.lms_service_base_url }}"
+      }
+
+      batch.create.endpoint {
+        course = "{{ .Values.batch_create_endpoint_course }}"
+        cl = "{{ .Values.batch_create_endpoint_cl }}"
+      }
+
+    flink-conf: |+
+      jobmanager.memory.flink.size: 1024m
+      taskmanager.memory.flink.size: 1024m
+      taskmanager.numberOfTaskSlots: 1
+      parallelism.default: 1
+      jobmanager.execution.failover-strategy: region
+      taskmanager.memory.network.fraction: 0.1
+    job_classname: org.sunbird.job.cfBatch.task.CfBatchManagerStreamTask
 commonAnnotations:
   reloader.stakater.com/auto: "true"
