@@ -956,6 +956,6 @@ flink_jobs:
       parallelism.default: 1
       jobmanager.execution.failover-strategy: region
       taskmanager.memory.network.fraction: 0.1
-    job_classname: org.sunbird.job.cfBatch.task.CfBatchManagerStreamTask
+    job_classname: org.sunbird.job.cf.task.CfBatchManagerStreamTask
 commonAnnotations:
   reloader.stakater.com/auto: "true"
