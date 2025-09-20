@@ -43,6 +43,8 @@ cassandra: &cassandra
   provisioning:
     annotations: *provisioningAnnotations
   image:
+    registry: sunbirded.azurecr.io
+    repository: cassandra
     tag: 3.11.13-debian-11-r3
   extraEnvVars:
     - name: CASSANDRA_AUTHENTICATOR
@@ -64,7 +66,8 @@ cassandra: &cassandra
 postgresql: &postgresql
   enabled: true
   image:
-    repository: sunbirded.azurecr.io/postgresql
+    registry: sunbirded.azurecr.io
+    repository: postgresql
     tag: 11.14.0
   fullnameOverride: postgresql
   host: postgresql
