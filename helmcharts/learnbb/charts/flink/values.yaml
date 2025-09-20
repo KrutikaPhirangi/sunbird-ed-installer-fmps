@@ -186,6 +186,7 @@ kafka_topic_programuser_info: "{{ .Values.global.env }}.programuser.info"
 kafka_topic_contentstate_invalid: "{{ .Values.global.env }}.contentstate.invalid"
 kafka_topic_enrolment_sync_request: "{{ .Values.global.env }}.batch.enrolment.sync.request"
 kafka_topic_assessment: "{{ .Values.global.env }}.telemetry.assess"
+kafka_topic_user_enrollment_audit: "{{ .Values.global.env }}.user.enrollment.audit"
 
 kafka_group_enrolment_reconciliation: "{{ .Values.global.env }}-enrolment-reconciliation-group"
 kafka_group_collection_pre_processor: "{{ .Values.global.env }}-collection-cert-pre-processor-group"
@@ -439,6 +440,7 @@ flink_jobs:
         output.audit.topic = "{{ include "common.tplvalues.render" (dict "value" .Values.kafka_topic_telemetry_raw "context" $) }}"
         output.failed.topic = "{{ include "common.tplvalues.render" (dict "value" .Values.kafka_topic_activity_agg_failed "context" $) }}"
         output.certissue.topic = "{{ include "common.tplvalues.render" (dict "value" .Values.kafka_topic_certificate_request "context" $) }}"
+        output.enrollment.audit.topic = "{{ include "common.tplvalues.render" (dict "value" .Values.kafka_topic_user_enrollment_audit "context" $) }}"
         groupId = "{{ include "common.tplvalues.render" (dict "value" .Values.kafka_group_activity_agg "context" $) }}"
       }
       task {
@@ -478,6 +480,7 @@ flink_jobs:
         filter.processed.enrolments = "{{ .Values.activity_agg_enrolment_filter_processe_enabled }}"
         collection.status.cache.expiry = "{{ .Values.activity_agg_collection_status_cache_expiry_time }}"
       }
+      activity.enrollment.audit.enabled = false
       service {
         search.basePath = "{{ .Values.kp_search_service_base_url }}"
       }
