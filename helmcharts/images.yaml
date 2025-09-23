@@ -1,0 +1,275 @@
+
+# edbb
+bot:
+  image:
+    repository: sunbirded.azurecr.io/bot
+    tag: "release-5.1.0_RC1_29_bot"
+
+discussionmw:
+  image:
+    registry: docker.io
+    repository: sunbirded.azurecr.io/discussion-middleware
+    tag: release-7.0.0_RC1_850b795_3
+
+echo:
+  image:
+    repository: sunbirded.azurecr.io/echo-server
+    tag: "master-RC1"
+
+knowledgemw:
+  image:
+    repository: sunbirded.azurecr.io/knowledge-mw-service
+    tag: "release-6.0.1_v5"
+
+kong:
+  image:
+    repository: sunbirded.azurecr.io/kong
+    tag: "0.14.1"
+
+nginx-private-ingress:
+  image:
+    repository: sunbirded.azurecr.io/proxy
+    tag: "release-7.0.0_8e6b2db_23"
+  
+nginx-public-ingress:
+  image:
+    repository: sunbirded.azurecr.io/proxy
+    tag: "release-7.0.0_8e6b2db_23"
+
+nodebb:
+  image:
+    repository: sunbirded.azurecr.io/nodebb
+    tag: release-5.0.0_RC1_1_v1.18.6
+
+player:
+  image:
+    repository: asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/player
+    tag: "v5.155"
+
+report:
+  image:
+    repository: sunbirded.azurecr.io/report-service
+    tag: "release-5.0.1"
+
+
+postgresql:
+  global:
+    image:
+      registry: sunbirded.azurecr.io
+      repository: postgresql
+      tag: 11.14.0
+
+cassandra:
+  global:
+    image:
+      registry: sunbirded.azurecr.io
+      repository: cassandra
+      tag: 3.11.13-debian-11-r3
+
+redis:
+  global:
+    image:
+      registry: sunbirded.azurecr.io
+      repository: redis
+      tag: 7.0.9-debian-11-r1
+    
+# inquirybb
+assessment:
+  image:
+    repository: sunbirded.azurecr.io/assessment-service
+    tag: release-7.0.0_RC2_aeccd6e_16
+
+inquirybb:
+  flink:
+    image:
+      repository: sunbirded.azurecr.io/data-pipeline
+      tag: release-8.0.0_RC1_b4f909c
+
+neo4j:
+  image:
+    repository: sunbirded.azurecr.io/neo4j
+    tag: "3.3.0"
+    
+# knowledgebb
+
+# working fine
+content:
+  image:
+    repository: asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/content-service
+    tag: "R6.1.0-FMPS-1.0-CSS-1.4.7.2-V4"
+
+dial:
+  image:
+    repository: sunbirded.azurecr.io/sunbird-dial-service
+    tag: "release-6.1.0_RC2_213843a_30"
+
+# not working
+knowledgebb:
+  flink:
+    image:
+      repository: docker.io/aimansharief/knowledge-platform-jobs
+      tag: "fmps-1.0.0-V1"
+
+learning:
+  image:
+    repository: sunbirded.azurecr.io/learning-service
+    tag: "latest"
+
+search:
+  image:
+    repository: sunbirded.azurecr.io/search-service
+    tag: "release-6.1.0_RC4_2272e93_40"
+
+taxonomy:
+  image:
+    repository: asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/taxonomy-service
+    tag: "R6.1.0-CSS-1.4.7.2-V4"
+
+# learnbb
+
+adminutil:
+  image:
+    repository: sunbirded.azurecr.io/adminutil
+    tag: "release-4.5.0_RC3_68b1eaa_61"
+
+cert:
+  image:
+    repository: sunbirded.azurecr.io/cert_service
+    tag: "release-5.0.1_RC2"
+  
+certificateapi:
+  image:
+    repository: sunbirded.azurecr.io/sunbird-rc-certificate-api
+    tag: "release-5.1.0_2bc7760_10"
+
+certificatesign:
+  image:
+    repository: sunbirded.azurecr.io/sunbird-rc-certificate-signer
+    tag: "release-5.1.0_2bc7760_9"
+
+certregistry:
+  image:
+    repository: sunbirded.azurecr.io/cert_registry_service
+    tag: "release-5.0.0_RC1_1"
+
+druid-operator:
+  image:
+    repository: druidio/druid-operator
+    tag: "" # tag not specified
+
+druid-raw-cluster:
+  image:
+    repository: druidio/druid
+    tag: "" # tag not specified
+
+learnbb:
+  flink:
+    image:
+      repository: docker.io/aimansharief/data-pipeline
+      tag: release-7.0.0_CFB-V5
+    
+groups:
+  image:
+    repository: sunbirded.azurecr.io/groups_service
+    tag: "release-7.0.0_RC1_e82e95d_3"
+
+keycloak:
+  image:
+    repository: asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/keycloak
+    tag: "7.0.7"
+
+keycloak-kids-keys:
+  image:
+    repository: sunbirded.azurecr.io/keycloak-kids-keys
+    tag: "0.1.5"
+
+lms:
+  image:
+    repository: maheshkg/lms-service
+    tag: "v1.0"
+
+notification:
+  image:
+    repository: sunbirded.azurecr.io/notification_service
+    tag: "release-7.0.0_RC4_db7555c_10"
+  
+print:
+  image:
+    repository: sunbirded.azurecr.io/print-service
+    tag: "release-3.1.0_f9a608c"
+
+registry:
+  image:
+    repository: sunbirded.azurecr.io/sunbird-rc-core
+    tag: "release-5.1.0_ece7ed3_14"
+
+userorg:
+  image:
+    repository: asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/userorg-service
+    tag: "email-special-chars"
+
+
+# monitoring
+
+kube-prometheus-stack:
+  prometheusOperator:
+    image:
+      registry: quay.io
+      repository: prometheus-operator/prometheus-operator
+      tag: "" # tag not specified
+
+  prometheus:
+    prometheusSpec:
+      image:
+        registry: quay.io
+        repository: prometheus/prometheus
+        tag: v2.47.1
+  alertmanagerSpec:
+    image:
+      registry: quay.io
+      repository: prometheus/alertmanager
+      tag: v0.26.0
+
+# obsrvbb
+
+analytics:
+  image:
+    registry: sunbirded.azurecr.io
+    repository: sunbird-analytics-service
+    tag: release-5.1.4
+
+obsrvbb:
+  flink:
+    image:
+      repository: asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/sunbird-data-pipeline
+      tag: "release-5.2.1_v4"
+
+# secor:
+#   image:
+#     repository: sunbirded.azurecr.io/secor
+#     tag: 1.0.0-GA
+
+superset:
+  image:
+    repository: sanketikahub/superset
+    tag: 4.1.1
+
+telemetry:
+  image:
+    repository: sunbirded.azurecr.io/telemetry-service
+    tag: "release-3.3.0_RC1"
+
+# additionals
+
+# tested working
+velero:
+  image:
+    repository: velero/velero
+    tag: v1.15.0
+
+volume-autoscaler: # not tested
+  global:
+    image:
+      registry: "docker.io"
+      repository: devopsnirvana/kubernetes-volume-autoscaler
+      tag: 1.0.5
