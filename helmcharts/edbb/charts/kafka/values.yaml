@@ -75,9 +75,9 @@ diagnosticMode:
 ## @param image.debug Specify if debug values should be set
 ##
 image:
-  registry: docker.io
-  repository: bitnami/kafka
-  tag: 3.4.0-debian-11-r6
+  registry: sunbirded.azurecr.io
+  repository: kafka
+  tag: 3.4.0-debian-11-r6 
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
@@ -777,8 +777,8 @@ externalAccess:
     ## @param externalAccess.autoDiscovery.image.pullSecrets Init container auto-discovery image pull secrets
     ##
     image:
-      registry: docker.io
-      repository: bitnami/kubectl
+      registry: sunbirded.azurecr.io
+      repository: kubectl
       tag: 1.25.6-debian-11-r14
       digest: ""
       ## Specify a imagePullPolicy
@@ -1337,8 +1337,8 @@ metrics:
     ## @param metrics.jmx.image.pullSecrets Specify docker-registry secret names as an array
     ##
     image:
-      registry: docker.io
-      repository: bitnami/jmx-exporter
+      registry: sunbirded.azurecr.io
+      repository: jmx-exporter
       tag: 0.17.2-debian-11-r53
       digest: ""
       ## Specify a imagePullPolicy
