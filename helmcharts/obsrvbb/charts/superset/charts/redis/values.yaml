@@ -1734,8 +1734,8 @@ sysctl:
   ## @param sysctl.image.pullSecrets Bitnami Shell image pull secrets
   ##
   image:
-    registry: docker.io
-    repository: bitnami/bitnami-shell
+    registry: sunbirded.azurecr.io
+    repository: os-shell
     tag: 11-debian-11-r102
     digest: ""
     pullPolicy: IfNotPresent
