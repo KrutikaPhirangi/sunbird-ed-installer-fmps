@@ -111,7 +111,7 @@ request_submit_url: "http://analytics-service:9000"
 user_id: ""
 
 client_id: "direct-grant"
-client_secret: "direct-grant0LeV5gw30i0G2gZj"
+client_secret: "direct-grant{{ .Values.global.random_string }}"
 username: "creator-fmpscontentmps@yopmail.com"
 password: "CreatorFmps@123"
 api_key: ""
