@@ -941,10 +941,13 @@ flink_jobs:
       lms-cassandra {
         keyspace = "{{ include "common.tplvalues.render" (dict "value" .Values.middleware_hierarchy_keyspace "context" $) }}"
         table = "{{ .Values.middleware_content_hierarchy_table }}"
+        isMultiDCEnabled = false
       }
 
       service {
         lms.basePath = "{{ .Values.lms_service_base_url }}"
+        clEnroll.endpoint = "/private/v1/activity/enroll"
+        courseEnroll.endpoint = "/private/v1/course/enroll"
       }
 
       batch.create.endpoint {
