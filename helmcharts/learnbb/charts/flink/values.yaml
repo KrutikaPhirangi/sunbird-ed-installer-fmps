@@ -944,6 +944,11 @@ flink_jobs:
         isMultiDCEnabled = false
       }
 
+      user-enrolments-cassandra {
+        keyspace = "sunbird_course"
+        table = "user_enrolments"
+      }
+
       service {
         lms.basePath = "{{ .Values.lms_service_base_url }}"
         clEnroll.endpoint = "/private/v1/activity/enroll"
