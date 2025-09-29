@@ -315,6 +315,28 @@ function form_data_dump_cassandra() {
     echo "Done."
 }
 
+function collection_tracking_dump_cassandra() {
+    local backup_dir="../../../cassandra-backup"
+    if [ -d "$backup_dir" ]; then
+        cd "$backup_dir" || return
+    fi
+    local namespace="sunbird"
+    local secret_name="cassandra"
+    local cass_pass
+    cass_pass=$(kubectl -n $namespace get secret $secret_name -o jsonpath="{.data.cassandra-password}" | base64 -d)
+
+    local cql_file="sb_collection_tracking.cql"
+
+    # Copy CQL file into pod
+    kubectl -n $namespace cp "$cql_file" cassandra-0:/tmp/"$cql_file"
+
+    echo "Executing $cql_file inside Cassandra pod..."
+    kubectl -n $namespace exec -i cassandra-0 -- \
+      cqlsh -u cassandra -p "$cass_pass" -f /tmp/"$cql_file" localhost
+
+    echo "✅ Collection tracking script executed."
+}
+
 function data_products_migration() {
     public_container_name=$(kubectl get cm -n sunbird player-env -ojsonpath='{.data.cloud_storage_resourceBundle_bucketname}')
     gsutil cp \
@@ -396,6 +418,7 @@ if [ $# -eq 0 ]; then
     get_new_root_org
     update_root_org $environment
     form_data_dump_cassandra
+    collection_tracking_dump_cassandra
     data_products_migration
 else
     case "$1" in
@@ -438,6 +461,9 @@ else
         ;;
     "form_data_dump_cassandra")
         form_data_dump_cassandra
+        ;;
+    "collection_tracking_dump_cassandra")
+        collection_tracking_dump_cassandra
         ;;
     "post_install_nodebb_plugins")
         post_install_nodebb_plugins
