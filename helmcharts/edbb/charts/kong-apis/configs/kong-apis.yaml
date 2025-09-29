@@ -207,11 +207,11 @@ kong_apis:
     config.whitelist:
     - contentAdmin
     - contentTempAccess
-  # - name: rate-limiting
-  #   config.policy: local
-  #   # config.hour: "{{ .Values.x_large_rate_limit_per_hour }}"
-  #   config.hour: ""
-  #   config.limit_by: credential
+  - name: rate-limiting
+    config.policy: local
+    config.hour: "{{ .Values.x_large_rate_limit_per_hour }}"
+    config.hour: ""
+    config.limit_by: credential
   - name: request-size-limiting
     config.allowed_payload_size: "{{ .Values.small_request_size_limit }}"
 
@@ -1407,11 +1407,11 @@ kong_apis:
   - name: acl
     config.whitelist:
     - anonymousCourseAccess
-  # - name: rate-limiting
-  #   config.policy: local
-  #   # config.hour: "{{ .Values.x_large_rate_limit_per_hour }}"
-  #   config.hour: ""
-  #   config.limit_by: credential
+  - name: rate-limiting
+    config.policy: local
+    config.hour: "{{ .Values.x_large_rate_limit_per_hour }}"
+    config.hour: ""
+    config.limit_by: credential
   - name: request-size-limiting
     config.allowed_payload_size: "{{ .Values.small_request_size_limit }}"
 
@@ -3231,11 +3231,11 @@ kong_apis:
   - name: acl
     config.whitelist:
     - courseAccess
-  # - name: rate-limiting
-  #   config.policy: local
-  #   # config.hour: "{{ .Values.medium_rate_limit_per_hour }}"
-  #   config.hour: ""
-  #   config.limit_by: credential
+  - name: rate-limiting
+    config.policy: local
+    config.hour: "{{ .Values.medium_rate_limit_per_hour }}"
+    config.hour: ""
+    config.limit_by: credential
   - name: request-size-limiting
     config.allowed_payload_size: "{{ .Values.small_request_size_limit }}"
     
