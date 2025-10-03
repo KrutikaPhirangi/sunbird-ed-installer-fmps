@@ -9340,9 +9340,24 @@ kong_apis:
   - name: request-size-limiting
     config.allowed_payload_size: "{{ .Values.small_request_size_limit }}"
 
-- name: activityEnrollList
+- name: activityUserEnrollList
   uris: "{{ .Values.activity_prefix }}/v1/user/enrollment/list"
   upstream_url: "{{ .Values.lms_service_url }}/v1/user/activity/enrollment/list"
+  strip_uri: true
+  plugins:
+  - name: jwt
+  - name: cors
+  - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
+  - name: rate-limiting
+    config.policy: local
+    config.hour: "{{ .Values.medium_rate_limit_per_hour }}"
+    config.limit_by: credential
+  - name: request-size-limiting
+    config.allowed_payload_size: "{{ .Values.small_request_size_limit }}"
+
+- name: activityEnrollList
+  uris: "{{ .Values.activity_prefix }}/v1/enrollment/list"
+  upstream_url: "{{ .Values.lms_service_url }}/v1/activity/enrollment/list"
   strip_uri: true
   plugins:
   - name: jwt
