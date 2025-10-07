@@ -9273,6 +9273,9 @@ kong_apis:
   - name: jwt
   - name: cors
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
+  - name: acl
+    config.whitelist:
+    - portalLoggedin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.medium_rate_limit_per_hour }}"
@@ -9288,6 +9291,9 @@ kong_apis:
   - name: jwt
   - name: cors
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
+  - name: acl
+    config.whitelist:
+    - portalLoggedin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.medium_rate_limit_per_hour }}"
@@ -9303,6 +9309,9 @@ kong_apis:
   - name: jwt
   - name: cors
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
+  - name: acl
+    config.whitelist:
+    - portalLoggedin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.medium_rate_limit_per_hour }}"
@@ -9318,6 +9327,9 @@ kong_apis:
   - name: jwt
   - name: cors
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
+  - name: acl
+    config.whitelist:
+    - portalLoggedin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.medium_rate_limit_per_hour }}"
@@ -9333,6 +9345,9 @@ kong_apis:
   - name: jwt
   - name: cors
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
+  - name: acl
+    config.whitelist:
+    - portalLoggedin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.medium_rate_limit_per_hour }}"
@@ -9348,6 +9363,9 @@ kong_apis:
   - name: jwt
   - name: cors
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
+  - name: acl
+    config.whitelist:
+    - portalLoggedin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.medium_rate_limit_per_hour }}"
@@ -9363,6 +9381,9 @@ kong_apis:
   - name: jwt
   - name: cors
   - {{ .Values.statsd_pulgin | toYaml | nindent 4 | trim }}
+  - name: acl
+    config.whitelist:
+    - portalLoggedin
   - name: rate-limiting
     config.policy: local
     config.hour: "{{ .Values.medium_rate_limit_per_hour }}"
