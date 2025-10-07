@@ -40,7 +40,7 @@ resource "google_storage_bucket" "storage_container_public" {
   
   cors {
     origin = [
-      "http://localhost",
+      "https://localhost",
       "capacitor://localhost",
       "ionic://localhost"
     ]

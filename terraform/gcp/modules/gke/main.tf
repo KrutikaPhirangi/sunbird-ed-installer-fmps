@@ -55,7 +55,7 @@ resource "google_container_cluster" "cluster" {
       ]
 
       confidential_nodes {
-        enabled = true
+        enabled = false
       }
 
       shielded_instance_config {
@@ -188,7 +188,7 @@ resource "google_container_node_pool" "node_pool" {
     ]
 
     confidential_nodes {
-      enabled = true
+      enabled = false
     }
 
     shielded_instance_config {
