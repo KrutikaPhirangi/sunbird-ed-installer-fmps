@@ -73,7 +73,7 @@ images:
 
   player: &player
     repository: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/player"
-    tag: "v5.158"
+    tag: "v5.161"
 
   report: &report
     repository: "sunbirded.azurecr.io/report-service"
@@ -144,8 +144,8 @@ images:
     tag: "0.1.5"
 
   lms: &lms
-    repository: "chethann07/lms-service"
-    tag: "cf-batch-impl_v13"
+    repository: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/lms-service"
+    tag: "release-7.0.0_RC5"
 
   notification: &notification
     repository: "sunbirded.azurecr.io/notification_service"
@@ -165,8 +165,8 @@ images:
     tag: "email-special-chars"
 
   content: &content
-    repository: "vinodbbhorge/content-service"
-    tag: "fmps-1.0.0_r5"
+    repository: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/content-service"
+    tag: "R6.1.0-FMPS-1.0-CSS-1.4.7.2-V4"
 
   dial: &dial
     repository: "sunbirded.azurecr.io/sunbird-dial-service"
@@ -184,7 +184,6 @@ images:
     repository: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/taxonomy-service"
     tag: "R6.1.0-CSS-1.4.7.2-V4"
 
-# working
   assessment: &assessment
     repository: "sunbirded.azurecr.io/assessment-service"
     tag: "release-7.0.0_RC2_aeccd6e_16"
@@ -194,16 +193,16 @@ images:
     repository: "sunbird-analytics-service"
     tag: "release-5.1.4"
 
-  # druid-operator: &druid-operator
-  #   repository: "druidio/druid-operator"
-  #   tag: ""
+  druid-operator: &druid-operator
+    repository: "druidio/druid-operator"
+    tag: ""
 
-  # druid-raw-cluster: &druid-raw-cluster
-  #   druid_image: "apache/druid:25.0.0"
+  druid-raw-cluster: &druid-raw-cluster
+    druid_image: "apache/druid:25.0.0"
 
-  # secor: &secor
-  #   repository: "sunbirded.azurecr.io/secor"
-  #   tag: "1.0.0-GA"
+  secor: &secor
+    repository: "sunbirded.azurecr.io/secor"
+    tag: "1.0.0-GA"
 
   superset: &superset
     repository: "sanketikahub/superset"
@@ -436,20 +435,17 @@ internal: &internal
     imagePullSecrets:
       - name: "registry-secret-name"
 
-  # druid-operator:
-  #   image: *druid-operator
-  #   imagePullSecrets:
-  #     - name: "registry-secret-name"
+  druid-operator:
+    image: *druid-operator
+    imagePullSecrets:
+      - name: "registry-secret-name"
 
-  # druid-raw-cluster:
-  #   image: *druid-raw-cluster
-  #   imagePullSecrets:
-  #     - name: "registry-secret-name"
+  druid-raw-cluster: *druid-raw-cluster
 
-  # secor:
-  #   image: *secor
-  #   imagePullSecrets:
-  #     - name: "registry-secret-name"
+  secor:
+    image: *secor
+    imagePullSecrets:
+      - name: "registry-secret-name"
 
   superset:
     image: *superset
@@ -472,22 +468,21 @@ internal: &internal
 # Flink images
 global:
   knowledgeflink:
-    registry: "ghcr.io"
-    repository: "sunbird-knowlg/knowledge-platform-jobs"
-    tag: "release-8.0.0_rc5_b49d280"
+    registry: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev"
+    repository: "knowledge-platform-jobs"
+    tag: "fmps-1.0.0-V3"
 
   learnflink:
-    registry: "ghcr.io"
-    repository: "sunbird-lern/data-pipeline"
-    tag: "release-8.0.0_rc7_a377ffa"
+    registry: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev"
+    repository: "data-pipeline"
+    tag: "release-7.0.0_RV11"
 
-# not working
   inquiryflink:
     registry: "sunbirded.azurecr.io"
     repository: "data-pipeline"
     tag: "release-8.0.0_RC1_b4f909c"
 
   obsrvflink:
-    registry: "sunbirded.azurecr.io"
-    repository: "sunbird-datapipeline"
-    tag: "release-5.2.0_RC8_9610bc7_13_be0895d"
+    registry: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev"
+    repository: "sunbird-data-pipeline"
+    tag: "release-5.2.1_v4"
