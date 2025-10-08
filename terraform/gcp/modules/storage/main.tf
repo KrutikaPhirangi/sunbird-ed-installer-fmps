@@ -44,7 +44,7 @@ resource "google_storage_bucket" "storage_container_public" {
       "capacitor://localhost",
       "ionic://localhost"
     ]
-    method          = ["GET", "POST", "PUT", "DELETE"]
+    method          = ["GET"]
     response_header = ["*"]
     max_age_seconds = 3600
   }
