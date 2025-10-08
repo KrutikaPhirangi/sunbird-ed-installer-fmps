@@ -480,7 +480,7 @@ flink_jobs:
         filter.processed.enrolments = "{{ .Values.activity_agg_enrolment_filter_processe_enabled }}"
         collection.status.cache.expiry = "{{ .Values.activity_agg_collection_status_cache_expiry_time }}"
       }
-      activity.enrollment.audit.enabled = false
+      activity.enrollment.audit.enabled = true
       service {
         search.basePath = "{{ .Values.kp_search_service_base_url }}"
       }
@@ -941,15 +941,34 @@ flink_jobs:
       lms-cassandra {
         keyspace = "{{ include "common.tplvalues.render" (dict "value" .Values.middleware_hierarchy_keyspace "context" $) }}"
         table = "{{ .Values.middleware_content_hierarchy_table }}"
+        isMultiDCEnabled = false
+      }
+
+      user-enrolments-cassandra {
+        keyspace = "{{ .Values.middleware_cassandra_courses_keyspace }}"
+        table = "user_enrolments"
       }
 
       service {
         lms.basePath = "{{ .Values.lms_service_base_url }}"
+        clEnroll.endpoint = "/private/v1/activity/enroll"
+        courseEnroll.endpoint = "/private/v1/course/enroll"
       }
 
       batch.create.endpoint {
         course = "{{ .Values.batch_create_endpoint_course }}"
         cl = "{{ .Values.batch_create_endpoint_cl }}"
+      }
+
+      sb-collection-cassandra {
+        keyspace = "sb_collection_tracking"
+        table = "user_enrolments"
+      }
+
+      redis {
+        host = redis-master
+        port = 6379
+        database.index = 6
       }
 
     flink-conf: |+
