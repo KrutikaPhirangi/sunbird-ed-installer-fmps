@@ -295,6 +295,29 @@ spec:
           restartPolicy: OnFailure
           serviceAccountName: spark-cronjob-sa
 ---
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: run-report-submit-script
+spec:
+  schedule: "0 7 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: report-submit-script
+            image: bitnami/kubectl:1.28.4
+            command:
+            - /bin/sh
+            - -c
+            - |
+              SPARK_POD=spark-master-0
+              kubectl exec -it $SPARK_POD -- bash -c "set -x; . /data/analytics/venv/bin/activate 2>/dev/null || true; python3 /data/analytics/scripts/request-submit.py"
+          restartPolicy: OnFailure
+          serviceAccountName: spark-cronjob-sa
+---
 apiVersion: batch/v1
 kind: CronJob
 metadata:
