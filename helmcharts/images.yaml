@@ -410,10 +410,7 @@ internal: &internal
     imagePullSecrets:
       - name: "registry-secret-name"
 
-  learning:
-    image: *learning
-    imagePullSecrets:
-      - name: "registry-secret-name"
+  learning: *learning
 
   search:
     image: *search
