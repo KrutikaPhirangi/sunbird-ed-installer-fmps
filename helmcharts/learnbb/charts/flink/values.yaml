@@ -965,6 +965,7 @@ flink_jobs:
         lms.basePath = "{{ .Values.lms_service_base_url }}"
         clEnroll.endpoint = "/private/v1/activity/enroll"
         courseEnroll.endpoint = "/private/v1/course/enroll"
+        search.basePath = "{{ .Values.kp_search_service_base_url }}"
       }
 
       batch.create.endpoint {
@@ -972,14 +973,21 @@ flink_jobs:
         cl = "{{ .Values.batch_create_endpoint_cl }}"
       }
 
+      entrance.exam.optional.threshold.percent = 100
+
       sb-collection-cassandra {
         keyspace = "sb_collection_tracking"
         table = "user_enrolments"
       }
 
+      assessment-aggregator-cassandra {
+        keyspace = "sunbird_courses"
+        table = "assessment_aggregator"
+      }
+
       redis {
-        host = redis-master
-        port = 6379
+        host = "{{ .Values.global.redis.host }}"
+        port = "{{ .Values.global.redis.port }}"
         database.index = 6
       }
 
