@@ -187,6 +187,7 @@ kafka_topic_contentstate_invalid: "{{ .Values.global.env }}.contentstate.invalid
 kafka_topic_enrolment_sync_request: "{{ .Values.global.env }}.batch.enrolment.sync.request"
 kafka_topic_assessment: "{{ .Values.global.env }}.telemetry.assess"
 kafka_topic_user_enrollment_audit: "{{ .Values.global.env }}.user.enrollment.audit"
+kafka_topic_individual_assessment: "{{.Values.global.env }}.individual.assess.events"
 
 kafka_group_enrolment_reconciliation: "{{ .Values.global.env }}-enrolment-reconciliation-group"
 kafka_group_collection_pre_processor: "{{ .Values.global.env }}-collection-cert-pre-processor-group"
@@ -792,6 +793,8 @@ flink_jobs:
         failed.topic= "{{ include "common.tplvalues.render" (dict "value" .Values.kafka_topic_assessment_failed "context" $) }}"
         groupId = "{{ include "common.tplvalues.render" (dict "value" .Values.kafka_group_assessment_aggregator "context" $) }}"
         output.certissue.topic = "{{ include "common.tplvalues.render" (dict "value" .Values.kafka_topic_certificate_request "context" $) }}"
+        individual.assess.events.topic = "{{ include "common.tplvalues.render" (dict "value" .Values.kafka_topic_individual_assessment "context" $) }}"
+        individual.assess.events.enabled = true
       }
       task {
         consumer.parallelism = "{{ .Values.assessaggregator_consumer_parallelism }}"
