@@ -615,6 +615,18 @@ flink_jobs:
         host = "{{ .Values.metadata2_redis_host | default .Values.global.redis.host }}"
         port = 6379
       }
+
+      collection-tracking-cassandra {
+        keyspace = "sb_collection_tracking"
+        batches.table = "batches"
+        user_enrolments.table = "user_enrolments"
+      }
+
+      activity_batch_index = "activity-batch"
+      service {
+        search.basePath = "http://elasticsearch:9200"
+      }
+
       assessment.metrics.supported.contenttype = ["SelfAssess"]
       cert_cloud_storage_type = "{{ include "common.tplvalues.render" (dict "value" .Values.cert_cloud_storage_type "context" $) }}"
       cert_cloud_storage_secret = "{{ include "common.tplvalues.render" (dict "value" .Values.cert_cloud_storage_secret "context" $) }}"
