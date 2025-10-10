@@ -687,7 +687,7 @@ flink_jobs:
     job_classname: org.sunbird.job.certgen.task.CertificateGeneratorStreamTask
 
   legacy-certificate-migrator:
-    enabled: true
+    enabled: false
     config: |+
       include file("/data/flink/conf/base-config.conf")
       kafka {
@@ -738,7 +738,7 @@ flink_jobs:
     job_classname: org.sunbird.job.certmigrator.task.CertificateGeneratorStreamTask
 
   merge-user-courses:
-    enabled: true
+    enabled: false
     config: |+
       include file("/data/flink/conf/base-config.conf")
       kafka {
@@ -878,7 +878,7 @@ flink_jobs:
     job_classname: org.sunbird.dp.userinfo.task.ProgramUserInfoStreamTask
   
   user-deletion-cleanup:
-    enabled: true
+    enabled: false
     config: |+
       include file("/data/flink/conf/base-config.conf")
       kafka {

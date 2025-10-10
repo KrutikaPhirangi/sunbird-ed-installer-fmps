@@ -482,7 +482,7 @@ flink_jobs:
     job_classname: org.sunbird.job.postpublish.task.PostPublishProcessorStreamTask
 
   dialcode-context-updater:
-    enabled: true
+    enabled: false
     config: |+
       include file("/data/flink/conf/base-config.conf")
       job {
@@ -539,7 +539,7 @@ flink_jobs:
 
 
   qrcode-image-generator:
-    enabled: true
+    enabled: false
     config: |+
       include file("/data/flink/conf/base-config.conf")
       job {
@@ -609,7 +609,7 @@ flink_jobs:
     job_classname: org.sunbird.job.qrimagegenerator.task.QRCodeImageGeneratorTask
 
   video-stream-generator:
-    enabled: true
+    enabled: false
     config: |+
       include file("/data/flink/conf/base-config.conf")
       job {
