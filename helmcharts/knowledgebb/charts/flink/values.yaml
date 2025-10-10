@@ -442,6 +442,7 @@ flink_jobs:
 
       dialcode {
         linkable.primaryCategory = ["Course"]
+        enabled = false
       }
 
       activity {
