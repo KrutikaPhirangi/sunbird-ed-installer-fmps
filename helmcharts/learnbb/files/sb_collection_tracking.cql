@@ -31,11 +31,27 @@ CREATE TABLE IF NOT EXISTS sb_collection_tracking.user_enrolments (
     active boolean,
     addedby text,
     completedon timestamp,
-    statusmap map<text, int>,
     datetime timestamp,
     enrolled_date timestamp,
     issued_certificates list<frozen<map<text, text>>>,
+    optional_batches list<text>,
     progress int,
     status int,
+    statusmap map<text, int>,
     PRIMARY KEY (userid, activityid, activitytype, batchid)
-) WITH CLUSTERING ORDER BY (activityid ASC, activitytype ASC, batchid ASC);
+) WITH CLUSTERING ORDER BY (activityid ASC, activitytype ASC, batchid ASC)
+
+-- User enrolments table view
+CREATE MATERIALIZED VIEW sb_collection_tracking.enrollments_by_batch AS
+    SELECT activityid, activitytype, batchid, userid, active, addedby, completedon, datetime, enrolled_date, issued_certificates, optional_batches, progress, status, statusmap
+    FROM sb_collection_tracking.user_enrolments
+    WHERE activityid IS NOT NULL AND activitytype IS NOT NULL AND batchid IS NOT NULL AND userid IS NOT NULL
+    PRIMARY KEY ((activityid, activitytype, batchid), userid)
+    WITH CLUSTERING ORDER BY (userid ASC)
+
+-- Insert values into role and role group.
+
+INSERT INTO sunbird.role_group (id, name) VALUES ('SKILLDOMAIN_CREATOR', 'SkillDomain Creator');
+INSERT INTO sunbird.role_group (id, name) VALUES ('SKILLDOMAIN_REVIEWER', 'SkillDomain Reviewer');
+INSERT INTO sunbird.role (id, name, rolegroupid, status) VALUES ('SKILLDOMAIN_REVIEWER', 'SkillDomain Reviewer', ['SKILLDOMAIN_REVIEWER'],1);
+INSERT INTO sunbird.role (id, name, rolegroupid, status) VALUES ('SKILLDOMAIN_CREATOR', 'SkillDomain Creator', ['SKILLDOMAIN_CREATOR'],1);
