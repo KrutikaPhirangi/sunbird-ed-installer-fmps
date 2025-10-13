@@ -940,11 +940,12 @@ flink_jobs:
 
       kafka {
         input.topic = "{{ .Values.global.env }}.cf.batch.request"
+        audit.progression.topic = "{{ .Values.global.env }}.user.enrollment.audit"
         output.audit.topic = "{{ .Values.global.env }}.telemetry.raw"
         output.failed.topic = "{{ .Values.global.env }}.cf.batch.failed"
         groupId = "{{ .Values.kafka_group_cf_batch_manager}}"
       }
-
+  
       task {
         window.shards = 1
         consumer.parallelism = 1
