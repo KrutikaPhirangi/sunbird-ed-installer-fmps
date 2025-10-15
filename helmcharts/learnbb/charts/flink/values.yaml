@@ -993,6 +993,7 @@ flink_jobs:
         host = "{{ .Values.global.redis.host }}"
         port = "{{ .Values.global.redis.port }}"
         database.index = 6
+        ttl = 86400
       }
 
     flink-conf: |+
@@ -1014,7 +1015,7 @@ flink_jobs:
         output.failed.topic = "{{ include "common.tplvalues.render" (dict "value" .Values.kafka_topic_activity_agg_failed "context" $) }}"
         output.certissue.topic = "{{ include "common.tplvalues.render" (dict "value" .Values.kafka_topic_certificate_request "context" $) }}"
         output.enrollment.audit.topic = "{{ include "common.tplvalues.render" (dict "value" .Values.kafka_topic_user_enrollment_audit "context" $) }}"
-        groupId = "{{ include "common.tplvalues.render" (dict "value" .Values.kafka_group_activity_agg "context" $) }}"
+        groupId = "{{ .Values.global.env }}-cf-progress-updater-group"
       }
       task {
         window.shards = "{{ .Values.activity_agg_window_shards }}"
