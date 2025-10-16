@@ -989,6 +989,11 @@ flink_jobs:
         table = "assessment_aggregator"
       }
 
+      es {
+        basePath = "http://elasticsearch:9200"
+        activityBatch.index = "activity-batch"
+      }
+
       redis {
         host = "{{ .Values.global.redis.host }}"
         port = "{{ .Values.global.redis.port }}"
