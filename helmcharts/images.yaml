@@ -144,7 +144,7 @@ images:
     tag: "0.1.5"
 
   lms: &lms
-    repository: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/lms-service
+    repository: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/lms-service"
     tag: "cf-batch-impl_v25_3"
 
   notification: &notification
