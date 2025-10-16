@@ -73,7 +73,7 @@ images:
 
   player: &player
     repository: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/player"
-    tag: "v5.161"
+    tag: "v5.166"
 
   report: &report
     repository: "sunbirded.azurecr.io/report-service"
@@ -165,8 +165,8 @@ images:
     tag: "email-special-chars"
 
   content: &content
-    repository: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/content-service"
-    tag: "R6.1.0-FMPS-1.0-CSS-1.4.7.2-V4"
+    repository: "maheshkg/content-service"
+    tag: "fmps-v1.0.5"
 
   dial: &dial
     repository: "sunbirded.azurecr.io/sunbird-dial-service"
@@ -465,14 +465,14 @@ internal: &internal
 # Flink images
 global:
   knowledgeflink:
-    registry: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev"
-    repository: "knowledge-platform-jobs"
-    tag: "fmps-1.0.0-V3"
+    registry: "docker.io"
+    repository: "aimansharief/knowledge-platform-jobs"
+    tag: "fmps-1.0.0-V5"
 
   learnflink:
-    registry: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev"
-    repository: "data-pipeline"
-    tag: "release-7.0.0_RV11"
+    registry: "docker.io"
+    repository: "aimansharief/data-pipeline"
+    tag: "release-7.0.0_CFB-V56"
 
   inquiryflink:
     registry: "sunbirded.azurecr.io"
