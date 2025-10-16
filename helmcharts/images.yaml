@@ -73,7 +73,7 @@ images:
 
   player: &player
     repository: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/player"
-    tag: "v5.168"
+    tag: "v5.169"
 
   report: &report
     repository: "sunbirded.azurecr.io/report-service"
@@ -144,8 +144,8 @@ images:
     tag: "0.1.5"
 
   lms: &lms
-    repository: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/lms-service"
-    tag: "release-7.0.0_RC5"
+    repository: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/lms-service
+    tag: "cf-batch-impl_v25_3"
 
   notification: &notification
     repository: "sunbirded.azurecr.io/notification_service"
@@ -165,7 +165,7 @@ images:
     tag: "email-special-chars"
 
   content: &content
-    repository: "maheshkg/content-service"
+    repository: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/content"
     tag: "fmps-v1.0.5"
 
   dial: &dial
@@ -465,14 +465,14 @@ internal: &internal
 # Flink images
 global:
   knowledgeflink:
-    registry: "docker.io"
-    repository: "aimansharief/knowledge-platform-jobs"
+    registry: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev"
+    repository: "knowledge-platform-jobs"
     tag: "fmps-1.0.0-V5"
 
   learnflink:
-    registry: "docker.io"
-    repository: "aimansharief/data-pipeline"
-    tag: "release-7.0.0_CFB-V56"
+    registry: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev"
+    repository: "data-pipeline"
+    tag: "release-7.0.0_CFB-V69"
 
   inquiryflink:
     registry: "sunbirded.azurecr.io"
