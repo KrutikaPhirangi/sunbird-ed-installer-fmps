@@ -7,7 +7,4 @@ object_acl =
 
 [sunbird]
 type = gcs
-project_number = protean-fmps-morocco
-service_account_file = ${gcp_service_account_key}
-bucket_policy_only = true
-object_acl = 
+anonymous = true
