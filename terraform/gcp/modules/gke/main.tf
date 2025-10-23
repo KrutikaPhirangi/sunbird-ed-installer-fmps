@@ -162,11 +162,6 @@ resource "google_container_node_pool" "node_pool" {
 
   initial_node_count = var.gke_node_pool_scaling_config["desired_size"]
 
-  autoscaling {
-    min_node_count = var.gke_node_pool_scaling_config["min_size"]
-    max_node_count = var.gke_node_pool_scaling_config["max_size"]
-  }
-
   management {
     auto_repair  = true
     auto_upgrade = true

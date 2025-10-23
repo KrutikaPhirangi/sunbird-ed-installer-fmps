@@ -73,7 +73,7 @@ images:
 
   player: &player
     repository: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/player"
-    tag: "v5.161"
+    tag: "v5.171"
 
   report: &report
     repository: "sunbirded.azurecr.io/report-service"
@@ -145,7 +145,7 @@ images:
 
   lms: &lms
     repository: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/lms-service"
-    tag: "release-7.0.0_RC5"
+    tag: "cf-batch-impl_v25_3"
 
   notification: &notification
     repository: "sunbirded.azurecr.io/notification_service"
@@ -166,7 +166,7 @@ images:
 
   content: &content
     repository: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev/content-service"
-    tag: "R6.1.0-FMPS-1.0-CSS-1.4.7.2-V4"
+    tag: "fmps-1.0.0-auto-pub-fd9f7091"
 
   dial: &dial
     repository: "sunbirded.azurecr.io/sunbird-dial-service"
@@ -467,12 +467,12 @@ global:
   knowledgeflink:
     registry: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev"
     repository: "knowledge-platform-jobs"
-    tag: "fmps-1.0.0-V3"
+    tag: "fmps-1.0.0-V5"
 
   learnflink:
     registry: "asia-south1-docker.pkg.dev/sunbird-morocco-sandbox-434709/sunbird-morocco-artifact-dev"
     repository: "data-pipeline"
-    tag: "release-7.0.0_RV11"
+    tag: "release-7.0.0_CFB-V73"
 
   inquiryflink:
     registry: "sunbirded.azurecr.io"
