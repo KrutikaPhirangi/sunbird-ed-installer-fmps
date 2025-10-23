@@ -7,4 +7,7 @@ object_acl =
 
 [sunbird]
 type = gcs
-anonymous = true
+project_number = ${gcp_project}
+service_account_file = ${gcp_service_account_key}
+bucket_policy_only = true
+object_acl = 
