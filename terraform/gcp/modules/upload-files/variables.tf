@@ -17,7 +17,7 @@ variable "gcp_service_account_key" {
 variable "sunbird_public_artifacts_bucket" {
     type        = string
     description = "The public GCP bucket name where storage artifacts are published for this release."
-    default     = "sunbird-public-artifacts"
+    default     = "sunbird-downloadableartifacts"
 }
 
 variable "sunbird_public_artifacts_path" {
